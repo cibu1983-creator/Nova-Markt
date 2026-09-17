@@ -23,13 +23,21 @@ const DB={
 };
 window.DB=DB;
 
-(function cleanInactivePaymentUI(){
-  const clean=()=>{
+(function polishFlows(){
+  const run=()=>{
     document.querySelectorAll('.securePay').forEach(el=>el.remove());
     document.querySelectorAll('.choice.disabled').forEach(el=>{if(/sicher bezahlen/i.test(el.textContent||''))el.remove()});
     document.querySelectorAll('.security .muted').forEach(el=>{
       if(/sicher bezahlen/i.test(el.textContent||''))el.textContent='Abholung und Barzahlung sind aktuell der unterstützte Ablauf. Bleib für Absprachen im DeinBasar-Chat und teile keine TANs, SMS-Codes, Passwörter oder Kreditkartendaten.';
     });
+    if(/konto\.html$/i.test(location.pathname)){
+      document.querySelectorAll('.actions').forEach(box=>{
+        if(box.querySelector('a[href="verkaufen.html"]')&&!box.querySelector('a[data-merchant-entry]')){
+          const a=document.createElement('a');a.href='mein-stand.html';a.className='btn light';a.dataset.merchantEntry='1';a.textContent='🏪 Mein Stand / Händler-Shop';
+          box.querySelector('a[href="verkaufen.html"]').insertAdjacentElement('afterend',a);
+        }
+      });
+    }
   };
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean,{once:true});else clean();
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
 })();
