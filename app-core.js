@@ -23,11 +23,12 @@ const DB={
 };
 window.DB=DB;
 
-(function removeInactivePaymentUI(){
+(function cleanInactivePaymentUI(){
   const clean=()=>{
     document.querySelectorAll('.securePay').forEach(el=>el.remove());
-    document.querySelectorAll('.choice.disabled').forEach(el=>{
-      if(/sicher bezahlen/i.test(el.textContent||''))el.remove();
+    document.querySelectorAll('.choice.disabled').forEach(el=>{if(/sicher bezahlen/i.test(el.textContent||''))el.remove()});
+    document.querySelectorAll('.security .muted').forEach(el=>{
+      if(/sicher bezahlen/i.test(el.textContent||''))el.textContent='Abholung und Barzahlung sind aktuell der unterstützte Ablauf. Bleib für Absprachen im DeinBasar-Chat und teile keine TANs, SMS-Codes, Passwörter oder Kreditkartendaten.';
     });
   };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean,{once:true});else clean();
