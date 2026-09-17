@@ -22,3 +22,13 @@ const DB={
   date(v){try{return new Intl.DateTimeFormat('de-DE',{dateStyle:'medium'}).format(new Date(v))}catch{return ''}}
 };
 window.DB=DB;
+
+(function removeInactivePaymentUI(){
+  const clean=()=>{
+    document.querySelectorAll('.securePay').forEach(el=>el.remove());
+    document.querySelectorAll('.choice.disabled').forEach(el=>{
+      if(/sicher bezahlen/i.test(el.textContent||''))el.remove();
+    });
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean,{once:true});else clean();
+})();
