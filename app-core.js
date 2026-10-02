@@ -12,6 +12,7 @@ const DB={
   esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))},
   euro(n){return new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(Number(n)||0)},
   date(v){try{return new Intl.DateTimeFormat('de-DE',{dateStyle:'medium'}).format(new Date(v))}catch{return ''}},
+  safeHttpUrl(v){try{const u=new URL(String(v||''));return /^https?:$/.test(u.protocol)?u.href:''}catch{return''}},
   loginUrl(returnTo){const target=returnTo||location.pathname.split('/').pop()+location.search+location.hash;return 'konto.html?return='+encodeURIComponent(target)},
   safeReturn(v){if(!v)return'';try{const d=decodeURIComponent(v);if(/^https?:/i.test(d)||d.startsWith('//')||d.includes('\\')||d.includes('/'))return'';if(!/^[a-zA-Z0-9_.?=&%#-]+$/.test(d))return'';return d}catch{return''}}
 };
