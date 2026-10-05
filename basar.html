@@ -98,7 +98,7 @@ button{color:inherit}.glass{
 .pro .counter{position:absolute;left:18px;right:18px;top:69px;height:21px;background:#6f5b48;border-radius:4px;border:2px solid #92775e}
 .pro .logoPlate{position:absolute;left:30px;right:30px;top:31px;height:27px;border-radius:7px;background:#0e0f11;border:1px solid rgba(255,255,255,.14);display:grid;place-items:center;color:#fff;font-size:8px;font-weight:950;overflow:hidden}
 .pro .logoPlate img{width:100%;height:100%;object-fit:cover}.pro .lights{position:absolute;left:25px;right:25px;top:13px;height:8px;background:radial-gradient(circle,#ffd683 0 3px,transparent 3.5px) 0 0/18px 8px repeat-x;filter:drop-shadow(0 0 6px #ffd683);opacity:.9}
-.pro .verified{position:absolute;right:2px;top:1px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#f3c969;color:#33230c;font-size:11px;font-weight:1000;border:2px solid #151618}
+.pro .verified{position:absolute;right:2px;top:1px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#f3c969;color:#33230c;font-size:11px;font-weight:1000;border:2px solid #151618}.stand.preview:after{content:"VORSCHAU";position:absolute;left:24px;bottom:-14px;padding:4px 7px;border-radius:999px;background:#6b4a25;color:#ffdba6;border:1px solid #aa7a3f;font-size:7px;font-weight:950;letter-spacing:.7px}
 .lantern{position:absolute;left:-2px;top:31px;width:12px;height:18px;border-radius:4px;background:#473e2d;border:2px solid #1c1c1d;box-shadow:none}
 .stand.online .lantern{background:#ffc86d;box-shadow:0 0 16px #ffc86daa}
 .pennants{position:absolute;left:20px;right:20px;top:0;height:13px;opacity:0}.stand.fresh .pennants{opacity:1;animation:pennant 1.3s ease-in-out infinite alternate}
@@ -303,7 +303,7 @@ function makeStand(s){
   const fresh=products.some(x=>freshDate(x.created_at)),online=!!s.is_online,pro=!!s.is_commercial;
   const filtered=currentFilter==='all'||currentFilter===zone;
   const type=pro?'pro':'basic',verified=!!(s.trader_verified||s.verified);
-  return `<button class="stand ${type} ${fresh?'fresh':''} ${online?'online':''} ${filtered?'':'hidden'}" type="button"
+  return `<button class="stand ${type} ${fresh?'fresh':''} ${online?'online':''} ${s.preview_pending?'preview':''} ${filtered?'':'hidden'}" type="button"
     style="left:${p.x}px;top:${p.y}px;--cat:${ZONES[zone].color}" data-shop="${s.id}" data-zone="${zone}">
     <span class="freshGlow"></span><span class="pennants"></span><span class="lantern"></span>
     ${pro?`<span class="roof"></span><span class="kiosk"></span><span class="lights"></span><span class="counter"></span><span class="logoPlate">${s.logo_url?`<img src="${DB.esc(s.logo_url)}" alt="">`:DB.esc(s.name)}</span>${verified?'<span class="verified">✓</span>':''}`
@@ -376,9 +376,9 @@ function openShop(s){
   $('drawerLogo').innerHTML=s.logo_url?`<img src="${DB.esc(s.logo_url)}" alt="">`:DB.esc((s.name||'D')[0].toUpperCase());
   $('drawerName').textContent=s.name||'Stand';
   $('drawerMeta').textContent=[ZONES[z].label,s.city,s.postal_code].filter(Boolean).join(' · ');
-  $('drawerBadges').innerHTML=`<span class="badge ${s.is_commercial?'pro':''}">${s.is_commercial?'HÄNDLER · PRO':'PRIVATER STAND'}</span>${verified?'<span class="badge ok">✓ Verifiziert</span>':''}${items.some(x=>freshDate(x.created_at))?'<span class="badge">NEU &lt; 24H</span>':''}`;
-  $('drawerIntro').textContent=s.description||'Dieser Stand präsentiert seine aktuellen Artikel auf dem DeinBasar.';
-  $('drawerActions').innerHTML=`<a class="action primary" href="shop.html?id=${encodeURIComponent(s.id)}">Stand komplett öffnen</a><a class="action" href="shop.html?id=${encodeURIComponent(s.id)}#kontakt">Nachricht senden</a>`;
+  $('drawerBadges').innerHTML=`<span class="badge ${s.is_commercial?'pro':''}">${s.is_commercial?'HÄNDLER · PRO':'PRIVATER STAND'}</span>${verified?'<span class="badge ok">✓ Verifiziert</span>':''}${s.preview_pending?'<span class="badge">NUR DEINE VORSCHAU</span>':''}${items.some(x=>freshDate(x.created_at))?'<span class="badge">NEU &lt; 24H</span>':''}`;
+  $('drawerIntro').textContent=s.preview_pending?'Dieser Stand ist nur für dich als Vorschau sichtbar und noch nicht öffentlich freigeschaltet. '+(s.description||''): (s.description||'Dieser Stand präsentiert seine aktuellen Artikel auf dem DeinBasar.');
+  $('drawerActions').innerHTML=s.preview_pending?`<a class="action primary" href="shop.html?id=${encodeURIComponent(s.id)}&preview=1">Vorschau öffnen</a><a class="action" href="haendler.html">Händlerdaten prüfen</a>`:`<a class="action primary" href="shop.html?id=${encodeURIComponent(s.id)}">Stand komplett öffnen</a><a class="action" href="shop.html?id=${encodeURIComponent(s.id)}#kontakt">Nachricht senden</a>`;
   $('drawerCount').textContent=items.length+(items.length===1?' Artikel':' Artikel');
   $('drawerProducts').innerHTML=items.length?items.slice(0,18).map(productCard).join(''):'<div class="emptyProducts">Dieser Stand hat gerade keine sichtbaren Artikel.</div>';
   openDrawer();
@@ -477,7 +477,19 @@ async function load(){
       api('/rest/v1/public_shops?select=id,owner_id,name,description,city,postal_code,categories,logo_url,verified,trader_verified,rating,rating_count,is_commercial,virtual_district,virtual_block,virtual_slot,updated_at&order=virtual_block.asc,virtual_slot.asc&limit=120'),
       api('/rest/v1/listings?status=in.(active,reserved)&select=id,shop_id,title,price,location,image_urls,category,seller_kind,created_at&order=created_at.desc&limit=600')
     ]);
-    shops=(s||[]).filter(x=>x.virtual_slot&&x.virtual_district);listings=l||[];individual=listings.filter(x=>!x.shop_id);
+    shops=(s||[]).filter(x=>x.virtual_slot&&x.virtual_district);listings=l||[];
+    if(DB.token()){
+      try{
+        const me=await DB.user();
+        const own=(await DB.authRequest('/rest/v1/shops?owner_id=eq.'+me.id+'&select=id,owner_id,name,description,city,postal_code,categories,logo_url,verified,rating,rating_count,is_commercial,virtual_district,virtual_block,virtual_slot,status,trader_verification_status&limit=1'))?.[0];
+        if(own&&own.virtual_slot&&own.virtual_district&&!shops.some(x=>x.id===own.id)){
+          shops.push({...own,trader_verified:false,preview_pending:true});
+          const ownItems=await DB.authRequest('/rest/v1/listings?seller_id=eq.'+me.id+'&status=in.(active,reserved)&select=id,shop_id,title,price,location,image_urls,category,seller_kind,created_at&order=created_at.desc&limit=120');
+          const seen=new Set(listings.map(x=>x.id));for(const x of ownItems||[])if(!seen.has(x.id)){listings.push(x);seen.add(x.id)}
+        }
+      }catch(e){console.warn('Eigene Standvorschau nicht verfügbar',e)}
+    }
+    individual=listings.filter(x=>!x.shop_id);
     if(shops.length){
       try{
         const ids=[...new Set(shops.map(x=>x.owner_id).filter(Boolean))];
