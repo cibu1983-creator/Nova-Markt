@@ -226,11 +226,11 @@ repeating-linear-gradient(45deg,#ddd6c8 0 12px,#d7d0c2 12px 24px)}
 
 
 <div class="viewSwitch" role="tablist" aria-label="Basar-Ansicht">
-  <button id="marketViewBtn" class="viewBtn on" type="button" role="tab" aria-selected="true">1 · Artikel & Stände</button>
-  <button id="mapViewBtn" class="viewBtn" type="button" role="tab" aria-selected="false">2 · 2D-Basar</button>
+  <button id="mapViewBtn" class="viewBtn on" type="button" role="tab" aria-selected="true">1 · 2D-Basar</button>
+  <button id="marketViewBtn" class="viewBtn" type="button" role="tab" aria-selected="false">2 · Artikel & Stände</button>
 </div>
 
-<section id="marketView" class="marketView">
+<section id="marketView" class="marketView hidden">
   <div class="marketIntro">
     <div><div class="eyebrow">MARKTPLATZ</div><h2>Artikel direkt entdecken</h2><p>Bereits aufgegebene Anzeigen sind hier sofort sichtbar – unabhängig davon, wo sie im 2D-Basar liegen.</p></div>
     <div id="marketCount" class="marketCount">Wird geladen …</div>
@@ -243,8 +243,8 @@ repeating-linear-gradient(45deg,#ddd6c8 0 12px,#d7d0c2 12px 24px)}
   <section id="publicShopList" class="shopStrip"><div class="empty">Stände werden geladen …</div></section>
 </section>
 
-<div id="mapView" class="hidden">
-  <div class="mapLead"><div><div class="eyebrow">OPTION 2</div><h2>Virtueller 2D-Basar</h2><p>Wähle ein Marktviertel und bewege dich zu Standplätzen. Die Karte ist bewusst die Entdecker-Ansicht – nicht der einzige Zugang zu Anzeigen.</p></div><div class="mapLeadBadge">2D · interaktiv</div></div>
+<div id="mapView">
+  <div class="mapLead"><div><div class="eyebrow">DEINBASAR</div><h2>Virtueller 2D-Basar</h2><p>Betritt den Basar, bewege dich durch Marktviertel und finde Händler, private Stände und Einzelanzeigen über ihre Standplätze. Die klassische Artikelliste bleibt als schneller Zweitzugang erhalten.</p></div><div class="mapLeadBadge">2D · interaktiv</div></div>
   <div id="districts" class="districts"></div>
 <section class="bazaarShell">
   <div class="bazaarTop"><h2 id="bazaarTitle">Hauptplatz</h2><div class="grow"></div><div id="blockNav" class="blockNav hidden"><button id="prevBlock" type="button">←</button><span id="blockLabel">Block 1</span><button id="nextBlock" type="button">→</button></div><span id="bazaarStatus" class="statusPill">Basar wird geladen …</span></div>
@@ -456,6 +456,6 @@ async function goShopMap(id){setView('map',true);let s=searchShopRows.find(x=>x.
 async function goListingMap(id){setView('map',true);let x=searchListingRows.find(a=>a.id===id);if(!x)x=(await rows('listings',{id:'eq.'+id,select:'id,shop_id,virtual_district,virtual_block,virtual_slot',limit:1}))[0];if(!x)return;if(!x.shop_id&&x.virtual_district==='einzelmarkt'){await enterDistrict('einzelmarkt',Number(x.virtual_block)||1);moveToSlot(Number(x.virtual_slot));return}if(x.shop_id){const s=(await rows('public_shops',{id:'eq.'+x.shop_id,select:'id,virtual_district,virtual_block,virtual_slot',limit:1}))[0];if(s){await enterDistrict(s.virtual_district,Number(s.virtual_block)||1);moveToSlot(Number(s.virtual_slot));return}}location.href='anzeige.html?id='+encodeURIComponent(id)}
 $('searchBtn').onclick=doSearch;$('q').onkeydown=$('place').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();doSearch()}};$('searchClose').onclick=()=>$('searchResults').classList.add('hidden')
 function firstFit(){scale=defaultScale();px=800;py=680;centerPlayer()}window.addEventListener('resize',firstFit);
-renderDistrictButtons();loadDistrict();loadMarket();setView('market');firstFit();
+renderDistrictButtons();loadDistrict();loadMarket();setView('map');firstFit();
 </script>
 </body></html>
