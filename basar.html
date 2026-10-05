@@ -186,19 +186,66 @@ dialog{border:0;border-radius:23px;padding:0;width:min(470px,calc(100% - 20px));
 @media(max-width:900px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(3,1fr)}.shopStrip{grid-template-columns:1fr}.worldViewport{height:620px}}
 @media(max-width:700px){.nearbyPanel{left:10px;right:10px;bottom:152px;width:auto}.navlinks .hideMob{display:none}.search{grid-template-columns:1fr}.resultCols{grid-template-columns:1fr}.hero h1{font-size:48px}.worldViewport{height:68vh;min-height:500px}.dpad{display:grid}.controlsPanel>.ctrlRow{display:none}.howto .desktop{display:none}.grid{grid-template-columns:repeat(2,1fr)}.merchantCta{display:block}.merchantCta .btn{width:100%;margin:14px 0 0}.shopCard{grid-template-columns:48px 1fr}.shopLogo{width:48px;height:48px}.shopCard .arrow{display:none}.bazaarTop h2{font-size:17px}.statusPill{display:none}}
 @media(max-width:430px){.wrap{width:min(100% - 16px,1180px)}.bazaarShell{border-radius:20px;padding:7px}.worldViewport{border-radius:16px}.hero{padding-top:24px}.heroSide{display:none}.grid{gap:8px}.body{padding:9px}.sheetActions{grid-template-columns:1fr}.blockNav span{min-width:48px}}
+
+/* MARKETPLACE-FIRST V3 */
+.viewSwitch{display:inline-flex;gap:4px;background:#e8e3da;border:1px solid #d6cfc3;border-radius:15px;padding:4px;margin:4px 0 18px}
+.viewBtn{border:0;background:transparent;color:#5f5b55;border-radius:11px;padding:11px 14px;font-weight:900;cursor:pointer}
+.viewBtn.on{background:#19191b;color:#fff;box-shadow:0 5px 14px #0002}
+.marketView{padding-bottom:8px}.marketIntro{display:flex;align-items:end;gap:18px;margin:4px 0 14px}.marketIntro>div:first-child{flex:1}
+.marketIntro h2,.mapLead h2{margin:4px 0 5px;font-size:clamp(27px,4vw,38px);letter-spacing:-1.2px}.marketIntro p,.mapLead p{margin:0;color:var(--m);line-height:1.5}
+.marketCount{background:#fff;border:1px solid var(--l);border-radius:14px;padding:10px 12px;font-size:12px;font-weight:850;white-space:nowrap}
+.catalogFilters{display:flex;gap:7px;overflow:auto;padding:2px 0 12px;scrollbar-width:none}.catalogFilters::-webkit-scrollbar{display:none}
+.catalogChip{white-space:nowrap;border:1px solid var(--l);background:#fff;border-radius:999px;padding:9px 12px;font-size:12px;font-weight:900;cursor:pointer}.catalogChip.on{background:#19191b;color:#fff;border-color:#19191b}
+.catalogGrid{padding-bottom:14px}.catalogGrid .card{transition:transform .15s ease,box-shadow .15s ease}.catalogGrid .card:hover{transform:translateY(-3px);box-shadow:0 12px 28px #0002}
+.demoCatalogCard{padding:0;text-align:left;color:inherit;font:inherit;cursor:pointer}.tag.demo{background:#fff2cb;color:#6e5100;border:1px solid #ecd98e}
+.demoStatus{margin:4px 0 20px;background:#fff8df;border:1px solid #eadba5;border-radius:15px;padding:12px 14px;color:#6b5719;font-size:12px;line-height:1.5}.demoStatus.hidden{display:none}
+.mapLead{display:flex;align-items:end;gap:18px;margin:4px 0 13px}.mapLead>div:first-child{flex:1}.mapLeadBadge{background:#19191b;color:#fff;border-radius:999px;padding:9px 12px;font-size:11px;font-weight:950;white-space:nowrap}
+#mapView.hidden,#marketView.hidden{display:none!important}
+#mapView .districts{margin-bottom:2px}
+.bazaarShell{margin-top:4px}
+.world{background:
+linear-gradient(90deg,transparent 0 20%,var(--walk) 20% 23%,var(--road) 23% 29%,var(--walk) 29% 32%,transparent 32% 68%,var(--walk) 68% 71%,var(--road) 71% 77%,var(--walk) 77% 80%,transparent 80%),
+linear-gradient(0deg,transparent 0 31%,var(--walk) 31% 34%,var(--road) 34% 42%,var(--walk) 42% 45%,transparent 45% 55%,var(--walk) 55% 58%,var(--road) 58% 66%,var(--walk) 66% 69%,transparent 69%),
+repeating-linear-gradient(45deg,#ddd6c8 0 12px,#d7d0c2 12px 24px)}
+.world:before{left:620px;top:345px;width:360px;height:310px;border-radius:88px}
+.plaza{left:650px;top:408px;width:300px;height:184px}
+.streetName.time{left:653px;top:485px}.streetName.market{left:742px;top:125px}.streetName.arcade{left:700px;top:842px}
+@media(max-width:700px){.marketIntro,.mapLead{display:block}.marketCount,.mapLeadBadge{display:inline-block;margin-top:10px}.viewSwitch{display:flex}.viewBtn{flex:1;padding:10px 8px}.catalogGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.catalogGrid .title{font-size:13px}.catalogGrid .price{font-size:17px}}
+
 </style>
 </head>
 <body>
 <header><nav class="wrap"><a class="brand" href="basar.html">dein<span>basar</span>.de</a><div class="navlinks"><a class="btn light hideMob" href="haendler.html">Stand eröffnen</a><a class="btn orange" href="verkaufen.html">＋ <span class="hideMob">Anzeige</span></a><a class="btn light" href="konto.html">Konto</a></div></nav></header>
 <main class="wrap">
 <section class="hero">
-  <div><div class="eyebrow">VIRTUELLER 2D-BASAR</div><h1>Wie ein echter Markt. Nur digital.</h1><p>Flaniere vom Hauptplatz über den Time Boulevard in Marktviertel, Boutiquen und Standgassen. Auch weit herausgezoomt bleiben Straßen, Viertel und Standplätze erkennbar. Jeder Anbieter bekommt eine feste Adresse aus Viertel, Block und Standnummer.</p></div>
-  <div class="heroSide"><b>Marktplatz statt Karten-UI</b><div class="hint">Dunkle Goldfassaden markieren Händler-Boutiquen, helle Marktstände private Verkäufer und blaue Kioske den Einzelmarkt. Suche führt dich weiterhin direkt zur richtigen Marktadresse.</div></div>
+  <div><div class="eyebrow">DEINBASAR MARKTPLATZ</div><h1>Erst stöbern. Dann durch den Basar laufen.</h1><p>Alle öffentlichen Anzeigen und Stände findest du sofort wie auf einem modernen Marktplatz. Der virtuelle 2D-Basar bleibt als zweite Ansicht erhalten – zum Entdecken, Flanieren und gezielten Besuchen von Standplätzen.</p></div>
+  <div class="heroSide"><b>Zwei Wege, ein Marktplatz</b><div class="hint"><b>1 · Artikel & Stände:</b> schnell suchen, filtern und öffnen.<br><b>2 · 2D-Basar:</b> Marktviertel, Standplätze und Einzelmarkt räumlich erkunden.</div></div>
 </section>
 <div class="search"><input id="q" placeholder="Was suchst du? z. B. Fahrrad, iPhone, Vintage" autocomplete="off"><input id="place" placeholder="Ort / PLZ optional" autocomplete="postal-code"><button id="searchBtn" class="btn orange" type="button">Suchen</button></div>
-<div id="districts" class="districts"></div>
 <section id="searchResults" class="searchResults hidden"><div class="searchHead"><b id="searchTitle">Suchergebnisse</b><div class="grow"></div><button id="searchClose" class="searchClose" type="button">✕</button></div><div class="resultCols"><div class="resultGroup"><h3>Stände & Händler</h3><div id="searchShops" class="resultList"></div></div><div class="resultGroup"><h3>Artikel</h3><div id="searchListings" class="resultList"></div></div></div></section>
 
+
+<div class="viewSwitch" role="tablist" aria-label="Basar-Ansicht">
+  <button id="marketViewBtn" class="viewBtn on" type="button" role="tab" aria-selected="true">1 · Artikel & Stände</button>
+  <button id="mapViewBtn" class="viewBtn" type="button" role="tab" aria-selected="false">2 · 2D-Basar</button>
+</div>
+
+<section id="marketView" class="marketView">
+  <div class="marketIntro">
+    <div><div class="eyebrow">MARKTPLATZ</div><h2>Artikel direkt entdecken</h2><p>Bereits aufgegebene Anzeigen sind hier sofort sichtbar – unabhängig davon, wo sie im 2D-Basar liegen.</p></div>
+    <div id="marketCount" class="marketCount">Wird geladen …</div>
+  </div>
+  <div id="catalogFilters" class="catalogFilters"></div>
+  <section id="catalogGrid" class="grid catalogGrid"><div class="empty">Anzeigen werden geladen …</div></section>
+  <div id="demoStatus" class="demoStatus hidden"></div>
+
+  <div class="sectionTop"><h2>Stände & Händler</h2><div class="grow"></div><div id="shopCount" class="count"></div></div>
+  <section id="publicShopList" class="shopStrip"><div class="empty">Stände werden geladen …</div></section>
+</section>
+
+<div id="mapView" class="hidden">
+  <div class="mapLead"><div><div class="eyebrow">OPTION 2</div><h2>Virtueller 2D-Basar</h2><p>Wähle ein Marktviertel und bewege dich zu Standplätzen. Die Karte ist bewusst die Entdecker-Ansicht – nicht der einzige Zugang zu Anzeigen.</p></div><div class="mapLeadBadge">2D · interaktiv</div></div>
+  <div id="districts" class="districts"></div>
 <section class="bazaarShell">
   <div class="bazaarTop"><h2 id="bazaarTitle">Hauptplatz</h2><div class="grow"></div><div id="blockNav" class="blockNav hidden"><button id="prevBlock" type="button">←</button><span id="blockLabel">Block 1</span><button id="nextBlock" type="button">→</button></div><span id="bazaarStatus" class="statusPill">Basar wird geladen …</span></div>
   <div id="viewport" class="worldViewport"><div id="world" class="world" data-district="hauptplatz">
@@ -220,19 +267,27 @@ dialog{border:0;border-radius:23px;padding:0;width:min(470px,calc(100% - 20px));
 
 <div class="sectionTop"><h2 id="sectionTitle">Schnellzugang</h2><div class="grow"></div><div id="sectionCount" class="count"></div></div>
 <section id="currentList" class="shopStrip"></section>
+</div>
 
 <section class="merchantCta"><div><h3>Verkaufen ohne Umwege.</h3><p>Ein einzelner privater Artikel braucht keinen Stand: einfach Anzeige aufgeben – er landet automatisch im Einzelmarkt. Wer regelmäßig verkauft, kann zusätzlich einen privaten Stand oder Händler-Shop eröffnen.</p></div><a class="btn orange" href="verkaufen.html">Anzeige aufgeben</a></section>
 
-<div class="sectionTop"><h2>Neu im Basar</h2><div class="grow"></div><div id="latestCount" class="count"></div></div>
-<section id="latestGrid" class="grid"><div class="empty">Artikel werden geladen …</div></section>
 </main>
+
+<dialog id="demoDialog"><div class="sheet"><button id="closeDemoDialog" class="sheetClose" type="button">✕</button><div class="sheetTop"><div id="demoSheetLogo" class="sheetLogo">D</div><div><div class="eyebrow">DEMOARTIKEL · NICHT KAUFBAR</div><h3 id="demoSheetName">Demoartikel</h3><div id="demoSheetMeta" class="sub"></div></div></div><p id="demoSheetDesc"></p><div class="notice" style="margin-top:12px">Dieser Eintrag dient nur dem Layout- und Belastungstest. Es gibt keinen Verkäuferkontakt und keine Kaufanfrage.</div></div></dialog>
 
 <dialog id="standDialog"><div class="sheet"><button id="closeDialog" class="sheetClose" type="button">✕</button><div class="sheetTop"><div id="sheetLogo" class="sheetLogo">D</div><div><div id="sheetType" class="eyebrow">BASAR</div><h3 id="sheetName">Eintrag</h3><div id="sheetMeta" class="sub"></div></div></div><p id="sheetDesc"></p><div id="sheetActions" class="sheetActions"></div></div></dialog>
 
-<script src="app-core.js?v=19"></script>
+<script src="app-core.js?v=20"></script>
 <script>
 const $=id=>document.getElementById(id);
-const W=1600,H=1000,slots=[{x:105,y:105},{x:340,y:105},{x:575,y:105},{x:810,y:105},{x:1045,y:105},{x:1280,y:105},{x:105,y:285},{x:340,y:285},{x:1065,y:285},{x:1300,y:285},{x:105,y:590},{x:340,y:590},{x:1065,y:590},{x:1300,y:590},{x:105,y:770},{x:340,y:770},{x:575,y:770},{x:810,y:770},{x:1045,y:770},{x:1280,y:770},{x:515,y:300},{x:885,y:300},{x:515,y:610},{x:885,y:610}];
+const W=1600,H=1000,slots=[
+{x:90,y:85},{x:330,y:85},{x:570,y:85},{x:810,y:85},{x:1050,y:85},{x:1290,y:85},
+{x:90,y:280},{x:90,y:460},{x:90,y:640},
+{x:1310,y:280},{x:1310,y:460},{x:1310,y:640},
+{x:90,y:790},{x:330,y:790},{x:570,y:790},{x:810,y:790},{x:1050,y:790},{x:1290,y:790},
+{x:390,y:280},{x:390,y:470},{x:390,y:660},
+{x:1010,y:280},{x:1010,y:470},{x:1010,y:660}
+];
 const DISTRICTS=[
  {id:'hauptplatz',label:'Hauptplatz',icon:'◎',color:'#f26f21',desc:'Von hier kommst du in jedes Marktviertel.'},
  {id:'technik',label:'Tech Passage',icon:'⌁',color:'#4b65d1',desc:'Elektronik, Computer, Smartphones und moderne Technik.'},
@@ -244,12 +299,86 @@ const DISTRICTS=[
  {id:'sonstiges',label:'Fundstücke',icon:'…',color:'#727272',desc:'Besondere Stände und alles, was sonst nirgends passt.'},
  {id:'einzelmarkt',label:'Einzelmarkt',icon:'▦',color:'#2867bd',desc:'Einzelanzeigen ohne eigenen Stand – direkt im Markt.'}
 ];
-const PORTAL_SLOTS=[1,3,5,7,18,20,22,24];
+const PORTAL_SLOTS=[1,3,5,7,12,14,16,18];
 let district='hauptplatz',block=1,mapObjects=[],hasNext=false,px=800,py=680,scale=.72,tx=0,ty=0,drag=null,searchShopRows=[],searchListingRows=[];
+const DEMO_MODE=new URLSearchParams(location.search).get('demo')==='1';
+let marketListings=[],demoListings=[],marketShops=[],catalogCategory='Alle';
 function dInfo(id){return DISTRICTS.find(x=>x.id===id)||DISTRICTS[0]}
 function accent(s){return /^#[0-9a-f]{6}$/i.test(s?.accent_color||'')?s.accent_color:'#f26f21'}
 function safeTerm(v){return String(v||'').trim().replace(/[^\p{L}\p{N}\s&+\-]/gu,' ').replace(/\s+/g,' ').slice(0,80)}
 async function rows(table,params={}){const u=new URL(DB.url+'/rest/v1/'+table);Object.entries(params).forEach(([k,v])=>{if(v!==undefined&&v!==null&&v!=='')u.searchParams.set(k,String(v))});const r=await fetch(u,{headers:{apikey:DB.key}});const j=await r.json().catch(()=>null);if(!r.ok)throw Error(j?.message||j?.error||('Laden fehlgeschlagen ('+r.status+')'));return j||[]}
+
+function setView(view,scroll=false){
+  const map=view==='map';
+  $('marketView').classList.toggle('hidden',map);
+  $('mapView').classList.toggle('hidden',!map);
+  $('marketViewBtn').classList.toggle('on',!map);
+  $('mapViewBtn').classList.toggle('on',map);
+  $('marketViewBtn').setAttribute('aria-selected',String(!map));
+  $('mapViewBtn').setAttribute('aria-selected',String(map));
+  if(map){setTimeout(()=>{firstFit();setTransform()},30)}
+  if(scroll)(map?$('mapView'):$('marketView')).scrollIntoView({behavior:'smooth',block:'start'});
+}
+$('marketViewBtn').onclick=()=>setView('market',true);
+$('mapViewBtn').onclick=()=>setView('map',true);
+
+const CATALOG_CATEGORIES=['Alle','Elektronik','Auto & Motorrad','Haus & Garten','Mode','Freizeit','Sonstiges'];
+function marketCard(x,isDemo=false){
+  const img=isDemo?x.image_url:x.image_urls?.[0];
+  const badge=isDemo?'DEMO · TEST':(x.seller_kind==='commercial'?'GEWERBLICH':(x.shop_id?'PRIVATER STAND':'PRIVAT'));
+  const cls=isDemo?'demo':(x.seller_kind==='commercial'?'com':(!x.shop_id?'ind':''));
+  const inner='<div class="pic">'+(img?'<img src="'+DB.esc(img)+'" alt="'+DB.esc(x.title)+'" loading="lazy">':'Kein Bild')+'</div><div class="body"><div class="title">'+DB.esc(x.title)+'</div><div class="price">'+DB.euro(x.price)+'</div><div class="meta">'+DB.esc(x.location||'')+' · '+DB.esc(x.category||'')+'</div><span class="tag '+cls+'">'+badge+'</span></div>';
+  return isDemo?'<button type="button" class="card demoCatalogCard" data-demo-id="'+x.id+'">'+inner+'</button>':'<a class="card" href="anzeige.html?id='+encodeURIComponent(x.id)+'">'+inner+'</a>';
+}
+function renderCatalogFilters(){
+  $('catalogFilters').innerHTML=CATALOG_CATEGORIES.map(x=>'<button type="button" class="catalogChip '+(x===catalogCategory?'on':'')+'" data-cat="'+DB.esc(x)+'">'+DB.esc(x)+'</button>').join('');
+  $('catalogFilters').querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{catalogCategory=b.dataset.cat;renderCatalogFilters();renderCatalog()});
+}
+function renderCatalog(){
+  const match=x=>catalogCategory==='Alle'||x.category===catalogCategory;
+  const real=marketListings.filter(match);
+  const demo=DEMO_MODE?demoListings.filter(match):[];
+  $('marketCount').textContent=real.length+' öffentliche Anzeige'+(real.length===1?'':'n')+(DEMO_MODE?' · '+demo.length+' Demoartikel':'');
+  const html=[...real.map(x=>marketCard(x,false)),...demo.map(x=>marketCard(x,true))].join('');
+  $('catalogGrid').innerHTML=html||'<div class="empty">In dieser Kategorie sind aktuell keine öffentlichen Anzeigen.</div>';
+  $('catalogGrid').querySelectorAll('[data-demo-id]').forEach(b=>b.onclick=()=>openDemo(Number(b.dataset.demoId)));
+}
+function openDemo(id){
+  const x=demoListings.find(a=>Number(a.id)===Number(id)); if(!x)return;
+  $('demoSheetName').textContent=x.title;
+  $('demoSheetMeta').textContent=DB.euro(x.price)+' · '+x.location+' · '+x.category;
+  $('demoSheetDesc').textContent=x.description;
+  $('demoSheetLogo').innerHTML=x.image_url?'<img src="'+DB.esc(x.image_url)+'" alt="">':'D';
+  $('demoDialog').showModal();
+}
+$('closeDemoDialog').onclick=()=>$('demoDialog').close();
+$('demoDialog').onclick=e=>{if(e.target===$('demoDialog'))$('demoDialog').close()};
+
+async function loadMarket(){
+  try{
+    const listingSel='id,title,price,location,image_urls,category,seller_kind,shop_id,virtual_district,virtual_block,virtual_slot,created_at';
+    const shopSel='id,name,description,city,postal_code,categories,verified,trader_verified,rating,rating_count,is_commercial,logo_url,accent_color,offers_pickup,offers_shipping,virtual_slot,virtual_district,virtual_block';
+    const jobs=[
+      rows('listings',{status:'in.(active,reserved)',select:listingSel,order:'created_at.desc',limit:120}),
+      rows('public_shops',{select:shopSel,order:'rating.desc,created_at.desc',limit:24})
+    ];
+    if(DEMO_MODE)jobs.push(rows('demo_catalog',{select:'id,title,price,category,location,image_url,description,virtual_district,virtual_block,virtual_slot,created_at',order:'id.asc',limit:100}));
+    const res=await Promise.all(jobs);
+    marketListings=res[0]||[]; marketShops=res[1]||[]; demoListings=DEMO_MODE?(res[2]||[]):[];
+    renderCatalogFilters();renderCatalog();
+    $('shopCount').textContent=marketShops.length+' öffentliche Stände';
+    $('publicShopList').innerHTML=marketShops.length?marketShops.map(cardShop).join(''):'<div class="empty">Noch keine öffentlich freigeschalteten Stände oder Händler-Shops.</div>';
+    if(DEMO_MODE){
+      $('demoStatus').classList.remove('hidden');
+      $('demoStatus').innerHTML='<b>Testmodus aktiv:</b> '+demoListings.length+' Demoartikel sind zusätzlich geladen. Sie sind deutlich markiert, nicht kaufbar und erzeugen keinen Kontakt.';
+    }
+  }catch(e){
+    console.error(e);
+    $('catalogGrid').innerHTML='<div class="empty">Anzeigen konnten gerade nicht geladen werden.</div>';
+    $('publicShopList').innerHTML='<div class="empty">Stände konnten gerade nicht geladen werden.</div>';
+  }
+}
+
 function renderDistrictButtons(){$('districts').innerHTML=DISTRICTS.map(d=>'<button class="districtBtn '+(d.id===district?'on ':'')+(d.id==='einzelmarkt'?'individual':'')+'" data-d="'+d.id+'">'+d.icon+' '+DB.esc(d.label)+'</button>').join('');$('districts').querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>enterDistrict(b.dataset.d,1))}
 function setTop(){const d=dInfo(district);$('bazaarTitle').textContent=d.label+(district==='hauptplatz'?'':' · Block '+block);$('plazaTitle').firstChild.textContent=(district==='hauptplatz'?'HAUPTPLATZ':d.label.toUpperCase());$('plazaSub').textContent=district==='hauptplatz'?'Wähle dein Viertel':'Block '+block+' · 24 Plätze';$('blockNav').classList.toggle('hidden',district==='hauptplatz');$('blockLabel').textContent='Block '+block;$('prevBlock').disabled=block<=1;$('nextBlock').disabled=!hasNext}
 function portalObjects(){return DISTRICTS.filter(d=>d.id!=='hauptplatz').map((d,i)=>({kind:'portal',slot:PORTAL_SLOTS[i],district:d.id,name:d.label,description:d.desc,icon:d.icon,color:d.color}))}
@@ -286,10 +415,10 @@ $('prevBlock').onclick=()=>{if(block>1)enterDistrict(district,block-1)};$('nextB
 async function loadLatest(){try{const x=await rows('listings',{status:'in.(active,reserved)',select:'id,title,price,location,image_urls,category,seller_kind,shop_id,virtual_district,virtual_block,virtual_slot,created_at',order:'created_at.desc',limit:12});$('latestCount').textContent=x.length+' neue Artikel';$('latestGrid').innerHTML=x.length?x.map(a=>'<a class="card" href="anzeige.html?id='+encodeURIComponent(a.id)+'"><div class="pic">'+(a.image_urls?.[0]?'<img src="'+DB.esc(a.image_urls[0])+'" alt="'+DB.esc(a.title)+'" loading="lazy">':'Kein Bild')+'</div><div class="body"><div class="title">'+DB.esc(a.title)+'</div><div class="price">'+DB.euro(a.price)+'</div><div class="meta">'+DB.esc(a.location||'')+' · '+DB.esc(a.category||'')+'</div><span class="tag '+(a.seller_kind==='commercial'?'com':(!a.shop_id?'ind':''))+'">'+(a.seller_kind==='commercial'?'GEWERBLICH':(!a.shop_id?'EINZELMARKT':'PRIVATER STAND'))+'</span></div></a>').join(''):'<div class="empty">Noch keine öffentlichen Artikel.</div>'}catch(e){$('latestGrid').innerHTML='<div class="empty">Neue Artikel konnten gerade nicht geladen werden.</div>'}}
 function searchLogic(fields,q,placeFields,p){const qOr=q?'or('+fields.map(f=>f+'.ilike.*'+q+'*').join(',')+')':'';const pOr=p?'or('+placeFields.map(f=>f+'.ilike.*'+p+'*').join(',')+')':'';if(qOr&&pOr)return{and:'('+qOr+','+pOr+')'};if(qOr)return{or:'('+fields.map(f=>f+'.ilike.*'+q+'*').join(',')+')'};if(pOr)return{or:'('+placeFields.map(f=>f+'.ilike.*'+p+'*').join(',')+')'};return{}}
 async function doSearch(){const q=safeTerm($('q').value),p=safeTerm($('place').value);if(!q&&!p){$('searchResults').classList.add('hidden');return}const b=$('searchBtn');b.disabled=true;b.textContent='Sucht …';try{const shopParams={...searchLogic(['name','description'],q,['city','postal_code'],p),select:'id,name,description,city,postal_code,categories,is_commercial,logo_url,accent_color,virtual_district,virtual_block,virtual_slot',order:'rating.desc,created_at.desc',limit:12};const listingParams={...searchLogic(['title','category','description'],q,['location'],p),status:'in.(active,reserved)',select:'id,title,price,location,image_urls,category,seller_kind,shop_id,virtual_district,virtual_block,virtual_slot',order:'created_at.desc',limit:16};[searchShopRows,searchListingRows]=await Promise.all([rows('public_shops',shopParams),rows('listings',listingParams)]);$('searchTitle').textContent=(searchShopRows.length+searchListingRows.length)+' Treffer für „'+DB.esc(q||p)+'“';$('searchShops').innerHTML=searchShopRows.length?searchShopRows.map(s=>'<div class="result"><div><b>'+DB.esc(s.name)+'</b><small>'+DB.esc(dInfo(s.virtual_district).label)+' · Block '+s.virtual_block+' · #'+s.virtual_slot+(s.city?' · '+DB.esc(s.city):'')+'</small></div><div class="resultActions"><button class="mini light" data-map-shop="'+s.id+'">Auf Karte</button><a class="mini" href="shop.html?id='+encodeURIComponent(s.id)+'">Öffnen</a></div></div>').join(''):'<div class="sub">Keine passenden Stände.</div>';$('searchListings').innerHTML=searchListingRows.length?searchListingRows.map(x=>'<div class="result"><div><b>'+DB.esc(x.title)+'</b><small>'+DB.euro(x.price)+' · '+DB.esc(x.location||'')+(x.shop_id?' · am Stand':' · Einzelmarkt')+'</small></div><div class="resultActions"><button class="mini light" data-map-listing="'+x.id+'">Auf Karte</button><a class="mini" href="anzeige.html?id='+encodeURIComponent(x.id)+'">Artikel</a></div></div>').join(''):'<div class="sub">Keine passenden Artikel.</div>';$('searchResults').classList.remove('hidden');$('searchResults').querySelectorAll('[data-map-shop]').forEach(x=>x.onclick=()=>goShopMap(x.dataset.mapShop));$('searchResults').querySelectorAll('[data-map-listing]').forEach(x=>x.onclick=()=>goListingMap(x.dataset.mapListing));$('searchResults').scrollIntoView({behavior:'smooth',block:'nearest'})}catch(e){console.error(e);$('searchResults').classList.remove('hidden');$('searchShops').innerHTML='<div class="sub">Suche konnte gerade nicht geladen werden.</div>';$('searchListings').innerHTML=''}finally{b.disabled=false;b.textContent='Suchen'}}
-async function goShopMap(id){let s=searchShopRows.find(x=>x.id===id);if(!s)s=(await rows('public_shops',{id:'eq.'+id,select:'id,virtual_district,virtual_block,virtual_slot',limit:1}))[0];if(!s)return;await enterDistrict(s.virtual_district,Number(s.virtual_block)||1);moveToSlot(Number(s.virtual_slot))}
-async function goListingMap(id){let x=searchListingRows.find(a=>a.id===id);if(!x)x=(await rows('listings',{id:'eq.'+id,select:'id,shop_id,virtual_district,virtual_block,virtual_slot',limit:1}))[0];if(!x)return;if(!x.shop_id&&x.virtual_district==='einzelmarkt'){await enterDistrict('einzelmarkt',Number(x.virtual_block)||1);moveToSlot(Number(x.virtual_slot));return}if(x.shop_id){const s=(await rows('public_shops',{id:'eq.'+x.shop_id,select:'id,virtual_district,virtual_block,virtual_slot',limit:1}))[0];if(s){await enterDistrict(s.virtual_district,Number(s.virtual_block)||1);moveToSlot(Number(s.virtual_slot));return}}location.href='anzeige.html?id='+encodeURIComponent(id)}
+async function goShopMap(id){setView('map',true);let s=searchShopRows.find(x=>x.id===id);if(!s)s=(await rows('public_shops',{id:'eq.'+id,select:'id,virtual_district,virtual_block,virtual_slot',limit:1}))[0];if(!s)return;await enterDistrict(s.virtual_district,Number(s.virtual_block)||1);moveToSlot(Number(s.virtual_slot))}
+async function goListingMap(id){setView('map',true);let x=searchListingRows.find(a=>a.id===id);if(!x)x=(await rows('listings',{id:'eq.'+id,select:'id,shop_id,virtual_district,virtual_block,virtual_slot',limit:1}))[0];if(!x)return;if(!x.shop_id&&x.virtual_district==='einzelmarkt'){await enterDistrict('einzelmarkt',Number(x.virtual_block)||1);moveToSlot(Number(x.virtual_slot));return}if(x.shop_id){const s=(await rows('public_shops',{id:'eq.'+x.shop_id,select:'id,virtual_district,virtual_block,virtual_slot',limit:1}))[0];if(s){await enterDistrict(s.virtual_district,Number(s.virtual_block)||1);moveToSlot(Number(s.virtual_slot));return}}location.href='anzeige.html?id='+encodeURIComponent(id)}
 $('searchBtn').onclick=doSearch;$('q').onkeydown=$('place').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();doSearch()}};$('searchClose').onclick=()=>$('searchResults').classList.add('hidden')
 function firstFit(){scale=defaultScale();px=800;py=680;centerPlayer()}window.addEventListener('resize',firstFit);
-renderDistrictButtons();loadDistrict();loadLatest();firstFit();
+renderDistrictButtons();loadDistrict();loadMarket();setView('market');firstFit();
 </script>
 </body></html>
