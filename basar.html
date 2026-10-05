@@ -69,7 +69,7 @@ nav{height:66px;display:flex;align-items:center;gap:10px}
 .helper{position:absolute;left:14px;bottom:14px;z-index:26;display:flex;gap:6px;flex-wrap:wrap;max-width:520px}.helper span{font-size:10px;color:#C5C2BE;padding:7px 9px;border-radius:999px;background:rgba(17,18,21,.78);border:1px solid rgba(255,255,255,.09)}
 .stand{--c:#B9533F;position:absolute;width:138px;height:112px;border:0;background:none;padding:0;cursor:pointer;z-index:6;filter:drop-shadow(0 12px 15px rgba(0,0,0,.34));transition:transform .16s,filter .16s,opacity .16s}
 .stand:hover,.stand.focused{transform:translateY(-5px) scale(1.035);filter:drop-shadow(0 15px 22px rgba(0,0,0,.46))}
-.stand.empty{opacity:.32;filter:saturate(.55)}
+.stand.empty{opacity:.32;filter:saturate(.55)}.stand.freeSlot{opacity:.22;cursor:default;pointer-events:none}.stand.freeSlot .standLabel{color:#A4A19D}
 .privateStall .roof{position:absolute;left:17px;top:7px;width:104px;height:32px;border-radius:8px 8px 3px 3px;background:repeating-linear-gradient(90deg,var(--c) 0 20px,#E8D8C4 20px 40px);border:2px solid rgba(0,0,0,.22)}
 .privateStall .post{position:absolute;width:5px;height:53px;top:36px;background:#7D5B3E}.privateStall .post.a{left:25px}.privateStall .post.b{right:25px}
 .privateStall .table{position:absolute;left:13px;right:13px;bottom:22px;height:23px;background:#8E6643;border-radius:4px;border:2px solid #66452E}
@@ -297,9 +297,24 @@ function buildObjects(){
     $('demoPill').style.display='inline-flex';
   }
 }
+function freeSlotHTML(d,idx){
+  const p=slots[d][idx],c=zoneData[d]?.color||'#777';
+  return '<div class="stand privateStall freeSlot" style="left:'+p[0]+'px;top:'+p[1]+'px;--c:'+c+'"><div class="roof"></div><i class="post a"></i><i class="post b"></i><div class="table"></div><div class="crate"></div><span class="standLabel">Freier Standplatz</span></div>';
+}
 function renderStands(){
   const filtered=objects.filter(o=>activeDistrict==='all'||o.district===activeDistrict);
-  $('stands').innerHTML=filtered.map(standHTML).join('');
+  const usedByDistrict={mode:new Set(),technik:new Set(),vintage:new Set(),freizeit:new Set(),einzelmarkt:new Set()};
+  for(const o of filtered){
+    const base=slots[o.district]||[]; if(!base.length)continue;
+    const slot=(Number(o.virtual_slot)||((hashNum(o.id||'x')%base.length)+1))-1;
+    usedByDistrict[o.district]?.add(((slot%base.length)+base.length)%base.length);
+  }
+  let html=filtered.map(standHTML).join('');
+  for(const d of ['mode','technik','vintage','freizeit']){
+    if(activeDistrict!=='all'&&activeDistrict!==d)continue;
+    for(let i=0;i<Math.min(3,slots[d].length);i++)if(!usedByDistrict[d].has(i))html+=freeSlotHTML(d,i);
+  }
+  $('stands').innerHTML=html;
   $('mapStatus').textContent=filtered.length;
   $('stands').querySelectorAll('.stand').forEach(b=>{
     b.onclick=e=>{e.stopPropagation();const o=objects.find(x=>String(x.id)===String(b.dataset.id));if(o)openDrawer(o)};
