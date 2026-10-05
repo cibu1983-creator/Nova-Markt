@@ -4,440 +4,487 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#121316">
-<title>DeinBasar – Neobasar</title>
+<title>DeinBasar – Virtueller 2D Basar</title>
 <style>
 :root{
   --accent:#FF5A36;--bg:#121316;--bg2:#1A1C20;--panel:rgba(255,255,255,.065);
-  --line:rgba(255,255,255,.12);--text:#F7F3EE;--muted:#AAA8A6;--soft:#24262C;
-  --mode:#B9533F;--tech:#1A4C64;--vintage:#9B671F;--sport:#315B3C;
+  --line:rgba(255,255,255,.12);--text:#f7f4ef;--muted:#aaa8a4;--soft:#777672;
+  --mode:#d85c43;--tech:#28c7d8;--vintage:#d29a43;--sport:#4f9a66;
 }
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text)}
-body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
-button,input{font:inherit}
-button,a{-webkit-tap-highlight-color:transparent}
-a{color:inherit}
-.wrap{width:min(1320px,calc(100% - 24px));margin:auto}
-.glass{background:var(--panel);backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:14px}
-header{position:sticky;top:0;z-index:80;background:rgba(18,19,22,.82);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.07)}
-nav{height:66px;display:flex;align-items:center;gap:10px}
-.brand{font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:22px;font-weight:900;text-decoration:none;letter-spacing:-.7px}
-.brand span{color:var(--accent)}
-.navActions{margin-left:auto;display:flex;gap:8px}
-.btn{border:1px solid transparent;border-radius:12px;padding:11px 14px;background:#25272D;color:#fff;font-weight:850;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px}
-.btn.primary{background:var(--accent);color:white}.btn.ghost{background:rgba(255,255,255,.055);border-color:var(--line)}.btn.small{padding:8px 10px;font-size:12px}
-.hero{padding:28px 0 16px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}
-.eyebrow{font-size:11px;font-weight:900;letter-spacing:1.4px;color:#FF8E74}
-.hero h1{font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:clamp(38px,6vw,66px);line-height:.96;letter-spacing:-3px;margin:7px 0 11px}
-.hero p{color:var(--muted);max-width:760px;line-height:1.55;margin:0}
-.heroStats{display:flex;gap:8px}.stat{min-width:110px;padding:12px 14px;text-align:right}.stat b{display:block;font-size:20px}.stat span{font-size:10px;color:var(--muted);font-weight:750}
-.toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;margin-bottom:10px}
-.searchBar{display:grid;grid-template-columns:minmax(0,1fr) auto;padding:7px}
-.searchBar input{height:46px;border:0;outline:none;background:transparent;color:white;padding:0 12px;font-size:16px}
-.searchBar input::placeholder{color:#7D7F84}
-.districtChips{display:flex;gap:7px;overflow:auto;scrollbar-width:none}.districtChips::-webkit-scrollbar{display:none}
-.chip{border:1px solid var(--line);background:rgba(255,255,255,.045);color:#D9D6D2;border-radius:999px;padding:10px 12px;font-size:11px;font-weight:900;white-space:nowrap;cursor:pointer}
-.chip.on{background:rgba(255,90,54,.16);border-color:rgba(255,90,54,.7);color:#FFD7CE}
-.mapShell{position:relative;height:min(75vh,760px);min-height:560px;border:1px solid rgba(255,255,255,.1);border-radius:24px;overflow:hidden;background:#0D0E10;box-shadow:0 24px 60px rgba(0,0,0,.28);margin-bottom:18px}
-.mapViewport{position:absolute;inset:0;overflow:hidden;touch-action:none;cursor:crosshair}
-.world{position:absolute;width:1600px;height:1000px;transform-origin:0 0;background:
-  radial-gradient(circle at 50% 50%,rgba(255,174,112,.055),transparent 32%),
-  repeating-linear-gradient(90deg,rgba(255,255,255,.012) 0 1px,transparent 1px 46px),
-  repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 46px),
-  #17191D}
-.world:before{content:"";position:absolute;inset:0;background:
-  linear-gradient(90deg,transparent 0 46%,rgba(255,255,255,.07) 46% 54%,transparent 54%),
-  linear-gradient(0deg,transparent 0 44%,rgba(255,255,255,.06) 44% 56%,transparent 56%);
-  opacity:.7;pointer-events:none}
-.paving{position:absolute;left:620px;top:355px;width:360px;height:290px;border-radius:44%;border:1px solid rgba(255,255,255,.08);background:
-  repeating-linear-gradient(45deg,rgba(255,255,255,.025) 0 10px,transparent 10px 20px),
-  rgba(255,255,255,.025);box-shadow:inset 0 0 50px rgba(0,0,0,.24)}
-.plaza{position:absolute;left:702px;top:430px;width:196px;height:140px;border-radius:50%;background:#21242A;border:1px solid rgba(255,255,255,.12);display:grid;place-items:center;text-align:center;z-index:1;box-shadow:0 18px 45px rgba(0,0,0,.25)}
-.plaza:before{content:"";position:absolute;width:70px;height:70px;border-radius:50%;background:#173D43;border:8px solid #25282E;box-shadow:0 0 28px rgba(79,197,211,.17)}
-.plaza strong{position:relative;z-index:1;background:#181A1E;border:1px solid var(--line);padding:8px 12px;border-radius:999px;font-family:"Plus Jakarta Sans",sans-serif;font-size:13px}
-.zone{position:absolute;border:1px solid rgba(255,255,255,.06);border-radius:28px;background:rgba(255,255,255,.018);box-shadow:inset 0 0 40px rgba(0,0,0,.12)}
-.zone.mode{left:60px;top:70px;width:540px;height:350px}.zone.tech{right:60px;top:70px;width:540px;height:350px}.zone.vintage{left:60px;bottom:60px;width:540px;height:380px}.zone.sport{right:60px;bottom:60px;width:540px;height:380px}
-.zoneLabel{position:absolute;z-index:2;display:flex;gap:7px;align-items:center;font-size:12px;font-weight:950;letter-spacing:.7px;text-transform:uppercase;color:#D5D2CE}
-.zoneLabel:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--z)}
-.zoneLabel.mode{--z:var(--mode);left:86px;top:92px}.zoneLabel.tech{--z:#4FC5D3;right:408px;top:92px}.zoneLabel.vintage{--z:#D28B2A;left:86px;bottom:410px}.zoneLabel.sport{--z:#6FAD79;right:420px;bottom:410px}
-.pathLabel{position:absolute;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#676B71;font-weight:900;z-index:1}
-.pathLabel.horizontal{left:722px;top:662px}.pathLabel.vertical{left:778px;top:220px;transform:rotate(90deg)}
-.mapHud{position:absolute;left:14px;top:14px;z-index:30;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
-.hudPill{padding:8px 10px;border-radius:999px;background:rgba(17,18,21,.82);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px);font-size:10px;font-weight:850;color:#D8D5D2}
-.hudPill b{color:#fff}.hudPill.accent{color:#FFD3CA;border-color:rgba(255,90,54,.45)}
-.zoomHud{position:absolute;right:14px;top:14px;z-index:30;display:flex;gap:6px}.zoomHud button{width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:rgba(17,18,21,.8);color:white;font-size:18px;font-weight:900;cursor:pointer}
-.helper{position:absolute;left:14px;bottom:14px;z-index:26;display:flex;gap:6px;flex-wrap:wrap;max-width:520px}.helper span{font-size:10px;color:#C5C2BE;padding:7px 9px;border-radius:999px;background:rgba(17,18,21,.78);border:1px solid rgba(255,255,255,.09)}
-.stand{--c:#B9533F;position:absolute;width:138px;height:112px;border:0;background:none;padding:0;cursor:pointer;z-index:6;filter:drop-shadow(0 12px 15px rgba(0,0,0,.34));transition:transform .16s,filter .16s,opacity .16s}
-.stand:hover,.stand.focused{transform:translateY(-5px) scale(1.035);filter:drop-shadow(0 15px 22px rgba(0,0,0,.46))}
-.stand.empty{opacity:.32;filter:saturate(.55)}.stand.freeSlot{opacity:.22;cursor:default;pointer-events:none}.stand.freeSlot .standLabel{color:#A4A19D}
-.privateStall .roof{position:absolute;left:17px;top:7px;width:104px;height:32px;border-radius:8px 8px 3px 3px;background:repeating-linear-gradient(90deg,var(--c) 0 20px,#E8D8C4 20px 40px);border:2px solid rgba(0,0,0,.22)}
-.privateStall .post{position:absolute;width:5px;height:53px;top:36px;background:#7D5B3E}.privateStall .post.a{left:25px}.privateStall .post.b{right:25px}
-.privateStall .table{position:absolute;left:13px;right:13px;bottom:22px;height:23px;background:#8E6643;border-radius:4px;border:2px solid #66452E}
-.privateStall .table:after{content:"";position:absolute;left:9px;right:9px;bottom:-17px;height:17px;border-left:5px solid #5D402B;border-right:5px solid #5D402B}
-.privateStall .crate{position:absolute;right:6px;bottom:2px;width:34px;height:23px;background:#A97A4E;border:2px solid #725034;border-radius:3px}
-.boutique .kiosk{position:absolute;left:8px;top:18px;width:122px;height:82px;background:#24262A;border:2px solid color-mix(in srgb,var(--c) 55%,#fff);border-radius:8px 8px 5px 5px}
-.boutique .kiosk:before{content:"";position:absolute;left:-5px;right:-5px;top:-15px;height:22px;background:linear-gradient(135deg,color-mix(in srgb,var(--c) 75%,#111),var(--c));clip-path:polygon(7% 100%,16% 15%,50% 0,84% 15%,93% 100%);border-radius:4px}
-.boutique .window{position:absolute;left:15px;right:15px;top:29px;height:31px;background:linear-gradient(180deg,#263A40,#102026);border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 0 22px rgba(95,215,227,.1)}
-.boutique .sign{position:absolute;left:16px;right:16px;top:5px;height:18px;border-radius:5px;background:#141517;border:1px solid rgba(255,255,255,.11);color:#fff;font-size:8px;font-weight:950;display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 5px;z-index:2}
-.boutique .lights{position:absolute;left:8px;right:8px;top:8px;height:4px;background:radial-gradient(circle,#FFD788 0 2px,transparent 3px) 0 0/14px 4px repeat-x;filter:drop-shadow(0 0 4px #FFD788)}
-.boutique .badge{position:absolute;right:3px;top:1px;z-index:4;background:#E7C467;color:#241A07;border-radius:999px;padding:4px 6px;font-size:7px;font-weight:1000}
-.aggregator{width:92px;height:118px}.aggregator .pillar{position:absolute;left:17px;top:7px;width:58px;height:95px;border-radius:50%/12%;background:linear-gradient(90deg,#353943,#202329 50%,#3B404B);border:1px solid rgba(255,255,255,.14)}
-.aggregator .pillar:before,.aggregator .pillar:after{content:"";position:absolute;left:-6px;right:-6px;height:12px;border-radius:50%;background:#474C58;border:1px solid rgba(255,255,255,.15)}.aggregator .pillar:before{top:-4px}.aggregator .pillar:after{bottom:-4px}
-.aggregator .screen{position:absolute;left:10px;right:10px;top:19px;height:51px;border-radius:6px;background:#102736;border:1px solid #3A819D;display:grid;place-items:center;color:#6ADAF1;font-size:8px;font-weight:950;text-align:center;padding:4px}
-.deco{position:absolute;font-size:23px;filter:drop-shadow(0 5px 5px rgba(0,0,0,.35));z-index:7}.deco.left{left:-4px;bottom:7px}.deco.right{right:-4px;bottom:7px}
-.lantern{position:absolute;right:8px;top:34px;width:10px;height:14px;border-radius:4px;background:#584D38;border:1px solid #29231A}
-.lantern.on{background:#FFD37C;box-shadow:0 0 12px 5px rgba(255,191,90,.45)}
-.newGlow{position:absolute;inset:-7px;border-radius:16px;border:2px solid color-mix(in srgb,var(--c) 75%,#fff);opacity:.75;animation:pulse 1.8s ease-in-out infinite;pointer-events:none}
-@keyframes pulse{50%{opacity:.15;transform:scale(1.04)}}
-.standLabel{position:absolute;left:50%;top:102px;transform:translateX(-50%);max-width:150px;min-width:90px;background:rgba(15,16,18,.86);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:5px 7px;color:white;font-size:8px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
-.player{position:absolute;width:36px;height:36px;border-radius:50%;background:var(--accent);border:4px solid #FFF;box-shadow:0 8px 24px rgba(255,90,54,.36);z-index:20;display:grid;place-items:center;font-weight:1000;font-size:10px;transition:left .07s linear,top .07s linear}
-.player:after{content:"DU";position:absolute;top:38px;background:#0E0F11;border:1px solid var(--line);padding:3px 6px;border-radius:999px;font-size:8px}
-.proximity{position:absolute;z-index:25;width:220px;padding:10px 11px;transform:translate(-50%,-100%);pointer-events:none;opacity:0;transition:.15s}
-.proximity.show{opacity:1}.proximity b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.proximity small{display:block;color:#BEBBB7;margin-top:3px;font-size:9px}.proximity .tag{display:inline-block;margin-top:6px;color:#FFBBAA;font-size:8px;font-weight:900}
-.drawerBackdrop{position:fixed;inset:0;background:rgba(0,0,0,.56);z-index:98;opacity:0;pointer-events:none;transition:.2s}.drawerBackdrop.on{opacity:1;pointer-events:auto}
-.drawer{position:fixed;right:0;top:0;bottom:0;width:min(440px,100%);z-index:99;background:#17191D;border-left:1px solid rgba(255,255,255,.11);box-shadow:-25px 0 70px rgba(0,0,0,.42);transform:translateX(104%);transition:.28s ease;display:flex;flex-direction:column}
-.drawer.on{transform:none}.drawerHead{padding:18px;border-bottom:1px solid rgba(255,255,255,.08)}.drawerTop{display:flex;gap:12px;align-items:center}.drawerLogo{width:58px;height:58px;border-radius:15px;background:#252830;display:grid;place-items:center;font-weight:950;overflow:hidden}.drawerLogo img{width:100%;height:100%;object-fit:cover}.drawerHead h2{font-family:"Plus Jakarta Sans",sans-serif;margin:0;font-size:24px;letter-spacing:-1px}.drawerHead p{margin:4px 0 0;color:var(--muted);font-size:11px}.closeDrawer{margin-left:auto;width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:white;cursor:pointer}
-.drawerBody{padding:16px 18px 26px;overflow:auto}.drawerInfo{color:#C7C4C0;font-size:12px;line-height:1.55}.drawerActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.products{display:grid;grid-template-columns:1fr 1fr;gap:9px}.product{background:#202227;border:1px solid rgba(255,255,255,.07);border-radius:13px;overflow:hidden;text-decoration:none}.productPic{aspect-ratio:4/3;background:#111318;display:grid;place-items:center;color:#777;overflow:hidden}.productPic img{width:100%;height:100%;object-fit:cover}.productBody{padding:9px}.productTitle{font-size:11px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.productPrice{font-size:14px;font-weight:950;margin-top:4px}.emptyProducts{grid-column:1/-1;border:1px dashed rgba(255,255,255,.13);border-radius:13px;padding:16px;text-align:center;color:#8F9095;font-size:11px}
-.legendRow{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 28px}.legend{padding:11px 12px;display:flex;gap:8px;align-items:center;font-size:11px;color:#D4D1CD}.dot{width:9px;height:9px;border-radius:50%}
-.latestHead{display:flex;align-items:end;gap:10px;margin:0 0 12px}.latestHead h2{font-family:"Plus Jakarta Sans",sans-serif;margin:0;font-size:26px}.latestHead span{margin-left:auto;color:var(--muted);font-size:11px}.latestGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding-bottom:34px}.latestCard{background:#191B20;border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;text-decoration:none}.latestPic{aspect-ratio:4/3;background:#101115;display:grid;place-items:center;color:#777;overflow:hidden}.latestPic img{width:100%;height:100%;object-fit:cover}.latestBody{padding:10px}.latestBody b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.latestBody strong{display:block;margin-top:5px;font-size:18px}.latestBody small{display:block;color:#8F9095;margin-top:4px}
-.searchResults{margin:0 0 10px;padding:10px;display:none}.searchResults.on{display:block}.searchGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.searchItem{border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px;background:#1B1D22;display:flex;align-items:center;gap:9px}.searchItem .grow{min-width:0;flex:1}.searchItem b{font-size:11px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.searchItem small{font-size:9px;color:#999}.searchItem button,.searchItem a{border:0;border-radius:8px;background:#2A2D33;color:white;padding:7px 8px;font-size:9px;font-weight:900;text-decoration:none;cursor:pointer}
-.mapLoading{position:absolute;inset:0;z-index:40;display:grid;place-items:center;background:#111318;color:#B8B6B3;font-size:12px;transition:.25s}.mapLoading.hide{opacity:0;pointer-events:none}
-@media(max-width:900px){
-  .hero{grid-template-columns:1fr}.heroStats{display:none}.toolbar{grid-template-columns:1fr}.latestGrid{grid-template-columns:repeat(2,1fr)}
-  .mapShell{height:70vh;min-height:560px}
+*{box-sizing:border-box}html,body{width:100%;min-height:100%}html{background:var(--bg)}body{
+  margin:0;background:radial-gradient(circle at 50% 0,#28211e 0,#16171a 36%,#101114 100%);
+  color:var(--text);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden
 }
-@media(max-width:620px){
-  .wrap{width:min(100% - 16px,1320px)}.navActions .hideMob{display:none}.hero{padding-top:20px}.hero h1{font-size:42px;letter-spacing:-2px}
-  .districtChips{margin-right:-8px}.mapShell{border-radius:18px;height:68vh;min-height:520px}.helper{right:10px;left:10px;bottom:10px}.helper span:nth-child(1){display:none}
-  .mapHud{left:10px;top:10px}.zoomHud{right:10px;top:10px}.proximity{width:190px}.latestGrid{grid-template-columns:1fr 1fr}.products{grid-template-columns:1fr 1fr}
-  .drawerActions{grid-template-columns:1fr}.searchGrid{grid-template-columns:1fr}.legendRow{overflow:auto;flex-wrap:nowrap}
+button,input{font:inherit}a{color:inherit}.hidden{display:none!important}
+button{color:inherit}.glass{
+  background:var(--panel);border:1px solid var(--line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 18px 50px rgba(0,0,0,.28)
+}
+.topbar{
+  position:fixed;z-index:80;left:14px;right:14px;top:max(12px,env(safe-area-inset-top));
+  height:58px;border-radius:18px;display:flex;align-items:center;gap:10px;padding:8px 10px
+}
+.brand{font:900 20px/1 "Plus Jakarta Sans",Inter,sans-serif;text-decoration:none;letter-spacing:-.8px;white-space:nowrap}
+.brand span{color:var(--accent)}.topnav{margin-left:auto;display:flex;gap:7px}.navbtn{
+  border:1px solid var(--line);background:rgba(255,255,255,.055);border-radius:12px;padding:9px 12px;text-decoration:none;
+  font-size:12px;font-weight:850;white-space:nowrap
+}.navbtn.primary{background:var(--accent);border-color:transparent;color:white}
+.stage{position:relative;height:100dvh;min-height:620px;overflow:hidden}
+.mapViewport{
+  position:absolute;inset:0;overflow:hidden;touch-action:none;cursor:crosshair;
+  background:
+    radial-gradient(circle at 18% 22%,rgba(255,90,54,.08),transparent 30%),
+    radial-gradient(circle at 82% 24%,rgba(40,199,216,.06),transparent 28%),
+    radial-gradient(circle at 21% 78%,rgba(210,154,67,.06),transparent 30%),
+    radial-gradient(circle at 83% 80%,rgba(79,154,102,.06),transparent 28%),
+    #121316
+}
+.world{
+  position:absolute;width:2550px;height:1900px;transform-origin:0 0;will-change:transform;
+  background:
+    linear-gradient(90deg,transparent 0 48%,rgba(255,255,255,.035) 48% 52%,transparent 52%),
+    linear-gradient(0deg,transparent 0 46%,rgba(255,255,255,.035) 46% 54%,transparent 54%),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 28px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.014) 0 1px,transparent 1px 28px),
+    #15171a
+}
+.world:before,.world:after{content:"";position:absolute;background:#25282d;border:1px solid rgba(255,255,255,.045);z-index:0}
+.world:before{left:1195px;top:0;width:160px;height:100%}
+.world:after{left:0;top:845px;width:100%;height:175px}
+.paving{
+  position:absolute;left:1070px;top:710px;width:410px;height:410px;border-radius:50%;z-index:1;
+  background:
+    radial-gradient(circle at center,#26292d 0 17%,#1f2226 17.5% 19%,transparent 19.5%),
+    repeating-conic-gradient(from 0deg,rgba(255,255,255,.035) 0 8deg,transparent 8deg 16deg),
+    #1b1d20;border:1px solid rgba(255,255,255,.08);box-shadow:inset 0 0 70px #0008,0 30px 80px #0006
+}
+.plazaTitle{
+  position:absolute;left:1160px;top:752px;width:230px;text-align:center;z-index:4;pointer-events:none;
+  font:900 22px/1.05 "Plus Jakarta Sans",Inter,sans-serif;letter-spacing:-.8px
+}
+.plazaTitle span{display:block;font:700 10px/1.2 Inter,sans-serif;color:var(--muted);letter-spacing:1.7px;margin-top:7px;text-transform:uppercase}
+.zone{
+  position:absolute;width:1020px;height:660px;border:1px solid rgba(255,255,255,.065);border-radius:48px;z-index:0;overflow:hidden;
+  box-shadow:inset 0 0 80px #0005
+}
+.zone:before{content:"";position:absolute;inset:0;opacity:.12;background:radial-gradient(circle at 50% 30%,var(--zone),transparent 58%)}
+.zone.mode{left:50px;top:80px;--zone:var(--mode)}.zone.tech{left:1480px;top:80px;--zone:var(--tech)}
+.zone.vintage{left:50px;top:1160px;--zone:var(--vintage)}.zone.sport{left:1480px;top:1160px;--zone:var(--sport)}
+.zoneLabel{
+  position:absolute;z-index:3;padding:10px 14px;border:1px solid rgba(255,255,255,.1);border-radius:14px;
+  background:rgba(14,15,17,.76);backdrop-filter:blur(12px);box-shadow:0 12px 30px #0005
+}
+.zoneLabel b{display:block;font:900 16px/1 "Plus Jakarta Sans",Inter,sans-serif}.zoneLabel small{display:block;margin-top:5px;color:var(--muted);font-size:9px;letter-spacing:1px;text-transform:uppercase}
+.zoneLabel.mode{left:92px;top:98px}.zoneLabel.tech{left:1518px;top:98px}.zoneLabel.vintage{left:92px;top:1178px}.zoneLabel.sport{left:1518px;top:1178px}
+.mapDecor{position:absolute;z-index:2;opacity:.75;pointer-events:none;filter:drop-shadow(0 8px 10px #0006)}
+.tree{width:34px;height:34px;border-radius:50%;background:#30533a;border:7px solid #223d2a}
+.lampPost{width:7px;height:34px;background:#34363a;border-radius:5px}.lampPost:before{content:"";position:absolute;margin-left:-7px;margin-top:-8px;width:21px;height:18px;border-radius:50%;background:#f1c873;box-shadow:0 0 20px #f1c87388}
+.stand{
+  --cat:var(--vintage);position:absolute;z-index:8;width:132px;height:96px;border:0;background:none;padding:0;cursor:pointer;
+  filter:drop-shadow(0 14px 14px rgba(0,0,0,.55));transition:transform .16s ease,filter .16s ease
+}
+.stand:hover,.stand.focused,.stand.near{transform:translateY(-7px) scale(1.04);filter:drop-shadow(0 18px 22px rgba(0,0,0,.7))}
+.stand .freshGlow{position:absolute;inset:-8px;border-radius:20px;border:1px solid transparent;pointer-events:none}
+.stand.fresh .freshGlow{border-color:color-mix(in srgb,var(--cat) 75%,white);box-shadow:0 0 24px color-mix(in srgb,var(--cat) 55%,transparent);animation:pulseGlow 2.1s ease-in-out infinite}
+@keyframes pulseGlow{50%{opacity:.35;transform:scale(1.05)}}
+.basic .canopy{position:absolute;left:8px;top:8px;width:116px;height:28px;border-radius:8px 8px 4px 4px;background:repeating-linear-gradient(90deg,var(--cat) 0 19px,#ead8ca 19px 38px);border:2px solid rgba(255,255,255,.22)}
+.basic .pole{position:absolute;top:34px;width:5px;height:45px;background:#8a6e50;border-radius:4px}.basic .pole.l{left:17px}.basic .pole.r{right:17px}
+.basic .table{position:absolute;left:17px;top:58px;width:98px;height:24px;border-radius:5px;background:#8a6846;border:2px solid #a8835d}
+.basic .table:after{content:"";position:absolute;left:8px;right:8px;top:22px;height:12px;border-left:4px solid #6d533a;border-right:4px solid #6d533a}
+.basic .crate{position:absolute;left:4px;bottom:0;width:32px;height:22px;border-radius:4px;background:#6f5438;border:2px solid #9b754d;transform:rotate(-5deg)}
+.basic .sign{position:absolute;right:6px;top:41px;max-width:92px;padding:4px 6px;border-radius:7px;background:#191a1d;border:1px solid rgba(255,255,255,.13);color:#fff;font-size:8px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pro{width:146px;height:108px}.pro .kiosk{position:absolute;left:8px;top:19px;width:130px;height:80px;border-radius:10px 10px 5px 5px;background:linear-gradient(180deg,#292a2d,#18191b);border:2px solid color-mix(in srgb,var(--cat) 35%,#fff);box-shadow:inset 0 0 0 1px #ffffff10}
+.pro .roof{position:absolute;left:0;top:6px;width:146px;height:34px;clip-path:polygon(8% 100%,20% 5%,80% 5%,92% 100%);background:linear-gradient(135deg,var(--cat),color-mix(in srgb,var(--cat) 45%,#fff))}
+.pro .counter{position:absolute;left:18px;right:18px;top:69px;height:21px;background:#6f5b48;border-radius:4px;border:2px solid #92775e}
+.pro .logoPlate{position:absolute;left:30px;right:30px;top:31px;height:27px;border-radius:7px;background:#0e0f11;border:1px solid rgba(255,255,255,.14);display:grid;place-items:center;color:#fff;font-size:8px;font-weight:950;overflow:hidden}
+.pro .logoPlate img{width:100%;height:100%;object-fit:cover}.pro .lights{position:absolute;left:25px;right:25px;top:13px;height:8px;background:radial-gradient(circle,#ffd683 0 3px,transparent 3.5px) 0 0/18px 8px repeat-x;filter:drop-shadow(0 0 6px #ffd683);opacity:.9}
+.pro .verified{position:absolute;right:2px;top:1px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#f3c969;color:#33230c;font-size:11px;font-weight:1000;border:2px solid #151618}
+.lantern{position:absolute;left:-2px;top:31px;width:12px;height:18px;border-radius:4px;background:#473e2d;border:2px solid #1c1c1d;box-shadow:none}
+.stand.online .lantern{background:#ffc86d;box-shadow:0 0 16px #ffc86daa}
+.pennants{position:absolute;left:20px;right:20px;top:0;height:13px;opacity:0}.stand.fresh .pennants{opacity:1;animation:pennant 1.3s ease-in-out infinite alternate}
+.pennants:after{content:"◆  ◆  ◆  ◆";font-size:7px;color:var(--cat);letter-spacing:3px;white-space:nowrap}
+@keyframes pennant{to{transform:translateY(-2px);filter:brightness(1.5)}}
+.deco{position:absolute;right:-18px;bottom:1px;width:28px;height:36px;display:grid;place-items:center;font-size:22px;filter:drop-shadow(0 5px 5px #0008)}
+.stand.free{opacity:.58;filter:saturate(.5) drop-shadow(0 8px 10px #0005)}.stand.free:hover{transform:none}.free .closed{
+  position:absolute;left:12px;top:21px;width:108px;height:62px;border-radius:8px;background:#25272a;border:2px dashed #5c5f64;display:grid;place-items:center;color:#7e8187;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.7px
+}.free .closed:before{content:"";position:absolute;left:8px;right:8px;top:9px;height:10px;background:repeating-linear-gradient(90deg,#4a4d52 0 13px,#2f3236 13px 26px);border-radius:4px}
+.infoPoint{
+  position:absolute;z-index:10;left:1170px;top:852px;width:210px;height:154px;border:0;background:none;cursor:pointer;color:inherit;padding:0;filter:drop-shadow(0 18px 25px #0009)
+}
+.infoPoint .column{position:absolute;left:72px;top:10px;width:66px;height:122px;border-radius:33px;background:linear-gradient(90deg,#22262c,#414853 48%,#1d2025);border:2px solid #68717f}
+.infoPoint .poster{position:absolute;left:83px;top:34px;width:44px;height:58px;border-radius:5px;background:linear-gradient(160deg,#2a6ac7,#6ea3ee);border:1px solid #a7c7f6;display:grid;place-items:center;text-align:center;font-size:8px;font-weight:950}
+.infoPoint .cap{position:absolute;left:61px;top:0;width:88px;height:20px;border-radius:50%;background:#454d59;border:2px solid #6b7584}
+.infoPoint .base{position:absolute;left:53px;top:119px;width:104px;height:24px;border-radius:50%;background:#1b1e23;border:2px solid #5d6673}
+.infoPoint .bubble{position:absolute;left:5px;top:-28px;right:5px;text-align:center;padding:8px;border-radius:11px;background:#20242a;border:1px solid #3b7bd5;font-size:9px;font-weight:900;box-shadow:0 0 22px #2a69c755}
+.infoPoint.fresh .bubble{animation:pulseInfo 1.8s ease-in-out infinite}@keyframes pulseInfo{50%{box-shadow:0 0 34px #4c91efaa}}
+.player{
+  position:absolute;z-index:30;width:38px;height:38px;border-radius:50%;background:linear-gradient(145deg,#ff7a59,#ff4f2d);border:4px solid white;
+  box-shadow:0 12px 25px #000a,0 0 0 5px rgba(255,90,54,.18);display:grid;place-items:center;font-size:15px;font-weight:950;transition:left .11s linear,top .11s linear;pointer-events:none
+}
+.player:before{content:"";position:absolute;left:11px;top:8px;width:8px;height:8px;border-radius:50%;background:#fff}.player:after{
+  content:"DU";position:absolute;top:40px;background:#0f1012;border:1px solid rgba(255,255,255,.13);border-radius:999px;padding:4px 7px;font-size:8px;letter-spacing:.5px
+}
+.proximity{
+  position:absolute;z-index:35;width:220px;pointer-events:auto;transform:translate(-44px,-104px);
+  border-radius:14px;padding:10px 11px;background:rgba(18,19,22,.94);border:1px solid rgba(255,255,255,.14);box-shadow:0 16px 35px #0009;backdrop-filter:blur(14px)
+}
+.proximity:after{content:"";position:absolute;left:58px;bottom:-7px;width:13px;height:13px;background:#151619;border-right:1px solid rgba(255,255,255,.14);border-bottom:1px solid rgba(255,255,255,.14);transform:rotate(45deg)}
+.proximity .kicker{font-size:8px;letter-spacing:1px;color:var(--accent);font-weight:950}.proximity b{display:block;margin-top:4px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.proximity small{display:block;margin-top:4px;color:var(--muted);font-size:9px}.proxActions{display:flex;gap:5px;margin-top:8px}.proxActions button{flex:1;border:0;border-radius:9px;padding:7px;background:var(--accent);font-size:9px;font-weight:900;cursor:pointer}
+.hud{
+  position:fixed;z-index:60;left:14px;top:86px;width:min(430px,calc(100vw - 28px));border-radius:18px;padding:11px
+}
+.searchRow{display:grid;grid-template-columns:1fr auto;gap:8px}.searchRow input{
+  min-width:0;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.25);color:#fff;padding:0 13px;outline:none;font-size:14px
+}.searchRow input:focus{border-color:#ff7a59}.searchBtn{border:0;border-radius:12px;padding:0 14px;background:var(--accent);font-weight:900;cursor:pointer}
+.filters{display:flex;gap:6px;overflow:auto;margin-top:8px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.filter{
+  flex:none;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);border-radius:999px;padding:7px 9px;font-size:9px;font-weight:900;cursor:pointer;color:#cfcecb
+}.filter.on{color:#fff;border-color:rgba(255,255,255,.26);background:rgba(255,255,255,.12)}
+.results{margin-top:8px;display:grid;gap:6px;max-height:270px;overflow:auto}.result{
+  width:100%;border:1px solid rgba(255,255,255,.09);background:#181a1e;border-radius:11px;padding:9px;text-align:left;cursor:pointer
+}.result b{display:block;font-size:11px}.result small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.result em{float:right;color:var(--accent);font-style:normal;font-size:8px;font-weight:900}
+.statusHud{
+  position:fixed;z-index:55;left:14px;bottom:max(14px,env(safe-area-inset-bottom));display:flex;gap:7px;align-items:center;border-radius:16px;padding:9px 11px;font-size:10px;color:var(--muted)
+}.statusHud b{color:#fff}.dot{width:7px;height:7px;border-radius:50%;background:#5e6268}.dot.live{background:#69d48c;box-shadow:0 0 9px #69d48c}
+.controls{
+  position:fixed;z-index:55;right:14px;bottom:max(14px,env(safe-area-inset-bottom));display:flex;gap:7px;align-items:end
+}.zoomGroup{display:grid;gap:5px}.mapBtn{
+  width:42px;height:42px;border-radius:13px;border:1px solid rgba(255,255,255,.12);background:rgba(18,19,22,.82);backdrop-filter:blur(14px);font-weight:950;cursor:pointer
+}.dpad{display:none;grid-template-columns:40px 40px 40px;grid-template-rows:40px 40px 40px;gap:4px}.dpad .up{grid-column:2}.dpad .left{grid-column:1;grid-row:2}.dpad .home{grid-column:2;grid-row:2;font-size:10px}.dpad .right{grid-column:3;grid-row:2}.dpad .down{grid-column:2;grid-row:3}
+.legend{
+  position:fixed;z-index:54;right:14px;top:86px;border-radius:16px;padding:9px 10px;display:grid;gap:6px;min-width:148px
+}.legend div{display:flex;align-items:center;gap:7px;font-size:9px;color:var(--muted)}.legend i{width:8px;height:8px;border-radius:50%}.legend b{color:#fff;font-size:9px}.legend .freshI{box-shadow:0 0 9px #ff8a6d}
+.drawerShade{position:fixed;z-index:89;inset:0;background:#0008;opacity:0;pointer-events:none;transition:.22s}.drawerShade.on{opacity:1;pointer-events:auto}
+.drawer{
+  position:fixed;z-index:90;right:0;top:0;height:100dvh;width:min(460px,100vw);transform:translateX(102%);transition:.28s cubic-bezier(.2,.8,.2,1);
+  background:#15171a;border-left:1px solid rgba(255,255,255,.1);box-shadow:-24px 0 70px #0008;overflow:auto
+}.drawer.on{transform:none}.drawerHead{
+  position:sticky;top:0;z-index:3;padding:18px;background:linear-gradient(180deg,rgba(20,22,25,.98),rgba(20,22,25,.91));backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.08)
+}.drawerTop{display:flex;align-items:flex-start;gap:12px}.drawerLogo{width:54px;height:54px;border-radius:15px;background:#24262b;display:grid;place-items:center;font-weight:950;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
+.drawerLogo img{width:100%;height:100%;object-fit:cover}.drawerName{font:900 23px/1.05 "Plus Jakarta Sans",Inter,sans-serif;letter-spacing:-.8px}.drawerMeta{margin-top:5px;color:var(--muted);font-size:10px}.closeDrawer{margin-left:auto;width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:#22252a;font-weight:950;cursor:pointer}
+.drawerBadges{display:flex;gap:5px;flex-wrap:wrap;margin-top:12px}.badge{padding:5px 7px;border-radius:999px;background:#25282d;font-size:8px;font-weight:900;color:#d9d8d5}.badge.pro{background:#543826;color:#ffd7bf}.badge.ok{background:#233c2c;color:#91e6ac}.drawerBody{padding:16px 18px 34px}.drawerIntro{color:#bbb9b5;font-size:12px;line-height:1.55}
+.drawerActions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:14px}.action{border:0;border-radius:12px;padding:11px 12px;background:#24272c;text-decoration:none;text-align:center;font-size:10px;font-weight:900}.action.primary{background:var(--accent);color:white}
+.productTitle{display:flex;align-items:end;gap:8px;margin:24px 0 10px}.productTitle h3{margin:0;font:900 18px/1 "Plus Jakarta Sans",Inter,sans-serif}.productTitle span{margin-left:auto;color:var(--muted);font-size:9px}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:9px}.product{background:#1d2024;border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;text-decoration:none}.productPic{aspect-ratio:4/3;background:#111;display:grid;place-items:center;color:#666;font-size:10px;overflow:hidden}.productPic img{width:100%;height:100%;object-fit:cover}.productInfo{padding:9px}.productInfo b{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.productInfo strong{display:block;margin-top:5px;font-size:14px}.productInfo small{display:block;color:var(--muted);font-size:8px;margin-top:3px}.emptyProducts{grid-column:1/-1;padding:22px;border:1px dashed rgba(255,255,255,.12);border-radius:14px;text-align:center;color:var(--muted);font-size:11px}
+.tapHint{
+  position:fixed;z-index:52;left:50%;bottom:17px;transform:translateX(-50%);padding:8px 11px;border-radius:999px;background:rgba(18,19,22,.78);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(12px);font-size:9px;color:#b8b6b2;pointer-events:none
+}
+@media(max-width:900px){.legend{display:none}.topnav .desktopOnly{display:none}.hud{top:82px}.statusHud{bottom:145px}.controls{bottom:14px}.dpad{display:grid}.tapHint{bottom:122px}}
+@media(max-width:640px){
+  .topbar{left:8px;right:8px;top:max(8px,env(safe-area-inset-top));height:54px}.brand{font-size:18px}.navbtn{padding:8px 9px;font-size:10px}.hud{left:8px;top:72px;width:calc(100vw - 16px);padding:9px}.filters{margin-top:7px}.legend{display:none}.statusHud{left:8px;bottom:142px;max-width:calc(100vw - 170px);padding:7px 8px}.statusHud .hideMob{display:none}.controls{right:8px}.tapHint{display:none}.drawer{width:100vw}.drawerActions{grid-template-columns:1fr}.products{gap:7px}
 }
 </style>
 </head>
 <body>
-<header><nav class="wrap">
+<header class="topbar glass">
   <a class="brand" href="basar.html">dein<span>basar</span>.de</a>
-  <div class="navActions">
-    <a class="btn ghost" href="haendler.html">🏪 <span class="hideMob">Stand eröffnen</span></a>
-    <a class="btn primary" href="verkaufen.html">＋ <span class="hideMob">Verkaufen</span></a>
-    <a class="btn ghost" href="konto.html">Konto</a>
+  <div class="topnav">
+    <a class="navbtn desktopOnly" href="sicherheit.html">Sicher handeln</a>
+    <a class="navbtn" href="konto.html">Konto</a>
+    <a class="navbtn primary" href="haendler.html">Stand eröffnen</a>
   </div>
-</nav></header>
+</header>
 
-<main class="wrap">
-  <section class="hero">
-    <div>
-      <div class="eyebrow">NEOBASAR · 2D MARKTPLATZ</div>
-      <h1>Schlendern. Entdecken.<br>Direkt handeln.</h1>
-      <p>Bewege dich durch den Basar, entdecke private Stände, Händler-Boutiquen und Einzelanzeigen. Ein Klick auf einen Stand öffnet das Sortiment direkt am Kartenrand.</p>
+<main class="stage">
+  <div id="viewport" class="mapViewport" aria-label="Virtueller DeinBasar">
+    <div id="world" class="world">
+      <div class="zone mode"></div><div class="zone tech"></div><div class="zone vintage"></div><div class="zone sport"></div>
+      <div class="zoneLabel mode"><b>Mode Boulevard</b><small>Fashion · Schmuck · Accessoires</small></div>
+      <div class="zoneLabel tech"><b>Tech Quarter</b><small>Elektronik · Gadgets · Gaming</small></div>
+      <div class="zoneLabel vintage"><b>Fundstücke & Vintage</b><small>Haus · Garten · Sammler · Besonderes</small></div>
+      <div class="zoneLabel sport"><b>Freizeit & Sport</b><small>Sport · Bikes · Outdoor · Hobby</small></div>
+      <div class="paving"></div>
+      <div class="plazaTitle">NEOBASAR<span>Hauptplatz · Einzelmarkt</span></div>
+      <div id="stands"></div>
+      <button id="infoPoint" class="infoPoint" type="button" aria-label="Einzelmarkt öffnen">
+        <span class="cap"></span><span class="column"></span><span class="poster">EINZEL<br>MARKT</span><span class="base"></span><span id="infoBubble" class="bubble">Einzelanzeigen entdecken</span>
+      </button>
+      <div id="player" class="player"></div>
+      <div id="proximity" class="proximity hidden"></div>
     </div>
-    <div class="heroStats">
-      <div class="stat glass"><b id="shopCount">–</b><span>öffentliche Stände</span></div>
-      <div class="stat glass"><b id="listingCount">–</b><span>sichtbare Artikel</span></div>
-    </div>
-  </section>
-
-  <section class="toolbar">
-    <div class="searchBar glass">
-      <input id="searchInput" type="search" placeholder="Stand, Händler oder Artikel suchen …" autocomplete="off">
-      <button id="searchBtn" class="btn primary" type="button">Suchen</button>
-    </div>
-    <div class="districtChips" id="districtChips">
-      <button class="chip on" data-district="all">Gesamter Basar</button>
-      <button class="chip" data-district="mode">Mode Boulevard</button>
-      <button class="chip" data-district="technik">Tech Gasse</button>
-      <button class="chip" data-district="vintage">Fundstücke & Vintage</button>
-      <button class="chip" data-district="freizeit">Freizeit & Sport</button>
-      <button class="chip" data-district="einzelmarkt">Einzelmarkt</button>
-    </div>
-  </section>
-
-  <section id="searchResults" class="searchResults glass">
-    <div id="searchGrid" class="searchGrid"></div>
-  </section>
-
-  <section class="mapShell">
-    <div id="mapLoading" class="mapLoading">Basar wird aufgebaut …</div>
-    <div id="viewport" class="mapViewport">
-      <div id="world" class="world">
-        <div class="zone mode"></div><div class="zone tech"></div><div class="zone vintage"></div><div class="zone sport"></div>
-        <div class="paving"></div><div class="plaza"><strong>HAUPTPLATZ</strong></div>
-        <div class="zoneLabel mode">Mode Boulevard</div><div class="zoneLabel tech">Tech Gasse</div>
-        <div class="zoneLabel vintage">Fundstücke & Vintage</div><div class="zoneLabel sport">Freizeit & Sport</div>
-        <div class="pathLabel horizontal">Basar Passage</div><div class="pathLabel vertical">Marktgasse</div>
-        <div id="stands"></div>
-        <div id="player" class="player">●</div>
-        <div id="proximity" class="proximity glass"><b id="proxName"></b><small id="proxMeta"></small><span id="proxTag" class="tag"></span></div>
-      </div>
-    </div>
-    <div class="mapHud">
-      <span class="hudPill accent">● DU BIST HIER</span>
-      <span class="hudPill"><b id="mapStatus">0</b> Stände sichtbar</span>
-      <span class="hudPill" id="demoPill" style="display:none">Demo-Modus</span>
-    </div>
-    <div class="zoomHud"><button id="zoomOut" type="button">−</button><button id="homeBtn" type="button">⌂</button><button id="zoomIn" type="button">＋</button></div>
-    <div class="helper"><span>WASD / Pfeile bewegen</span><span>Tippen/Klicken = hinlaufen</span><span>Stand antippen = öffnen</span></div>
-  </section>
-
-  <div class="legendRow">
-    <div class="legend glass"><span class="dot" style="background:var(--mode)"></span>Mode</div>
-    <div class="legend glass"><span class="dot" style="background:#4FC5D3"></span>Elektronik / Tech</div>
-    <div class="legend glass"><span class="dot" style="background:#D28B2A"></span>Vintage</div>
-    <div class="legend glass"><span class="dot" style="background:#6FAD79"></span>Freizeit & Sport</div>
-    <div class="legend glass">🏪 Händler-Boutique</div>
-    <div class="legend glass">🧺 Privater Stand</div>
-    <div class="legend glass">▦ Einzelmarkt</div>
   </div>
-
-  <section>
-    <div class="latestHead"><h2>Neu auf dem Basar</h2><span id="latestCount"></span></div>
-    <div id="latestGrid" class="latestGrid"></div>
-  </section>
 </main>
 
-<div id="drawerBackdrop" class="drawerBackdrop"></div>
-<aside id="drawer" class="drawer" aria-hidden="true">
+<section class="hud glass" aria-label="Basar Navigation">
+  <div class="searchRow">
+    <input id="search" type="search" maxlength="80" placeholder="Stand, Artikel oder Kategorie suchen …" autocomplete="off">
+    <button id="searchBtn" class="searchBtn" type="button">Suchen</button>
+  </div>
+  <div class="filters">
+    <button class="filter on" data-filter="all">Alle</button>
+    <button class="filter" data-filter="mode">Mode</button>
+    <button class="filter" data-filter="tech">Tech</button>
+    <button class="filter" data-filter="vintage">Vintage</button>
+    <button class="filter" data-filter="sport">Freizeit</button>
+    <button class="filter" data-filter="individual">Einzelmarkt</button>
+  </div>
+  <div id="results" class="results hidden"></div>
+</section>
+
+<aside class="legend glass">
+  <div><i style="background:var(--accent)"></i><b>DU</b> bewegst dich durch den Basar</div>
+  <div><i style="background:#d3aa6a"></i><span>Händler-Boutique</span></div>
+  <div><i style="background:#8a6846"></i><span>Privater Stand</span></div>
+  <div><i class="freshI" style="background:#ff8a6d"></i><span>Neue Artikel &lt; 24h</span></div>
+</aside>
+
+<div class="statusHud glass"><span id="liveDot" class="dot"></span><b id="statusText">Basar wird geladen …</b><span class="hideMob">· WASD / Pfeile · Klick zum Laufen</span></div>
+
+<div class="controls">
+  <div class="dpad">
+    <button class="mapBtn up" data-move="up">↑</button>
+    <button class="mapBtn left" data-move="left">←</button>
+    <button class="mapBtn home" id="homeMobile">DU</button>
+    <button class="mapBtn right" data-move="right">→</button>
+    <button class="mapBtn down" data-move="down">↓</button>
+  </div>
+  <div class="zoomGroup">
+    <button id="zoomIn" class="mapBtn" type="button">＋</button>
+    <button id="zoomOut" class="mapBtn" type="button">−</button>
+    <button id="home" class="mapBtn" type="button">⌂</button>
+  </div>
+</div>
+<div class="tapHint">Klick auf den Weg = laufen · Stand anklicken = Sortiment öffnen</div>
+
+<div id="drawerShade" class="drawerShade"></div>
+<aside id="drawer" class="drawer" aria-label="Stand Details">
   <div class="drawerHead">
     <div class="drawerTop">
       <div id="drawerLogo" class="drawerLogo">D</div>
-      <div style="min-width:0;flex:1"><h2 id="drawerTitle">Stand</h2><p id="drawerMeta"></p></div>
+      <div>
+        <div id="drawerName" class="drawerName">Stand</div>
+        <div id="drawerMeta" class="drawerMeta"></div>
+      </div>
       <button id="closeDrawer" class="closeDrawer" type="button">✕</button>
     </div>
+    <div id="drawerBadges" class="drawerBadges"></div>
   </div>
   <div class="drawerBody">
-    <div id="drawerInfo" class="drawerInfo"></div>
+    <div id="drawerIntro" class="drawerIntro"></div>
     <div id="drawerActions" class="drawerActions"></div>
-    <h3 style="font-family:'Plus Jakarta Sans',sans-serif;margin:20px 0 10px">Artikel</h3>
+    <div class="productTitle"><h3>Artikel</h3><span id="drawerCount"></span></div>
     <div id="drawerProducts" class="products"></div>
   </div>
 </aside>
 
-<script src="app-core.js?v=13"></script>
+<script src="app-core.js?v=15"></script>
 <script>
 const $=id=>document.getElementById(id);
-const WORLD={w:1600,h:1000};
-let scale=.78,tx=0,ty=0,px=800,py=675,target=null,raf=0;
-let shops=[],listings=[],objects=[],activeDistrict='all',activeObject=null;
-const demoMode=new URLSearchParams(location.search).get('demo')==='1';
-const zoneData={
-  mode:{label:'Mode Boulevard',color:'#B9533F',deco:['👗','🧵']},
-  technik:{label:'Tech Gasse',color:'#247792',deco:['💻','📦']},
-  vintage:{label:'Fundstücke & Vintage',color:'#A86C22',deco:['🧳','💡']},
-  freizeit:{label:'Freizeit & Sport',color:'#3F6D49',deco:['🛹','🚲']},
-  einzelmarkt:{label:'Einzelmarkt',color:'#6D6F78',deco:['▦','▤']}
+const W=2550,H=1900;
+const ZONES={
+  mode:{label:'Mode Boulevard',color:'#d85c43',icon:'♢',baseX:95,baseY:175,center:[555,430]},
+  tech:{label:'Tech Quarter',color:'#28c7d8',icon:'⌁',baseX:1525,baseY:175,center:[1980,430]},
+  vintage:{label:'Fundstücke & Vintage',color:'#d29a43',icon:'◇',baseX:95,baseY:1255,center:[555,1510]},
+  sport:{label:'Freizeit & Sport',color:'#4f9a66',icon:'○',baseX:1525,baseY:1255,center:[1980,1510]}
 };
-const slots={
-  mode:[[145,145],[335,150],[145,295],[360,300],[525,205]],
-  technik:[[1010,145],[1205,145],[1040,300],[1240,300],[930,230]],
-  vintage:[[145,610],[345,620],[155,800],[365,800],[525,705]],
-  freizeit:[[1010,610],[1210,620],[1020,805],[1225,805],[930,710]],
-  einzelmarkt:[[690,230],[820,230],[690,710],[820,710],[565,455],[940,455]]
-};
-function esc(s){return DB.esc(s)}
-function categoryDistrict(c=''){
-  const x=c.toLowerCase();
-  if(/mode|kleidung|schuh|schmuck/.test(x))return'mode';
-  if(/elektr|technik|computer|telefon|handy|audio/.test(x))return'technik';
-  if(/freizeit|sport|fahrrad|spiel/.test(x))return'freizeit';
-  if(/vintage|antik|haus|garten|möbel|moebel|sammler/.test(x))return'vintage';
-  return'einzelmarkt';
+let shops=[],listings=[],individual=[],shopProducts=new Map(),shopById=new Map();
+let px=1275,py=1070,scale=.72,tx=0,ty=0,currentFilter='all',hoverShop=null,nearShop=null,drawerTarget=null;
+const decoIcons={mode:'♙',tech:'▣',vintage:'▰',sport:'◉'};
+function normZone(s){
+  const d=(s.virtual_district||'').toLowerCase(),c=((s.categories||[])[0]||'').toLowerCase();
+  if(d==='mode'||c.includes('mode')||c.includes('schmuck'))return'mode';
+  if(d==='technik'||d==='tech'||c.includes('elektr'))return'tech';
+  if(d==='freizeit'||c.includes('freizeit')||c.includes('sport'))return'sport';
+  return'vintage';
 }
-function normalizeDistrict(v,c){
-  if(['mode','technik','vintage','freizeit','einzelmarkt'].includes(v))return v;
-  return categoryDistrict(c);
+function slotPos(zone,slot=1){
+  const z=ZONES[zone]||ZONES.vintage,n=Math.max(1,Math.min(24,Number(slot)||1))-1,col=n%6,row=Math.floor(n/6);
+  return{x:z.baseX+col*155,y:z.baseY+row*133};
 }
-function publicRows(table,params={}){
-  const q=new URLSearchParams();
-  for(const[k,v]of Object.entries(params))if(v!==undefined&&v!==null&&v!=='')q.set(k,v);
-  return fetch(DB.url+'/rest/v1/'+table+'?'+q.toString(),{headers:{apikey:DB.key}}).then(async r=>{
-    const j=await r.json().catch(()=>[]);
-    if(!r.ok)throw Error(j?.message||'Laden fehlgeschlagen');
-    return j;
-  });
+function euro(n){return DB.euro(Number(n)||0)}
+function freshDate(v){return v&&Date.now()-new Date(v).getTime()<86400000}
+async function api(path){
+  const r=await fetch(DB.url+path,{headers:{apikey:DB.key}});
+  const j=await r.json().catch(()=>[]);
+  if(!r.ok)throw Error(j?.message||j?.error||'Laden fehlgeschlagen');
+  return j;
 }
-function hashNum(s=''){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return Math.abs(h)}
-function objectPosition(o,index){
-  const d=o.district,base=slots[d]||slots.einzelmarkt,slot=(Number(o.virtual_slot)||((hashNum(o.id||String(index))%base.length)+1))-1;
-  const p=base[((slot%base.length)+base.length)%base.length].slice();
-  const block=Math.max(1,Number(o.virtual_block)||1),j=(block-1)%3;
-  p[0]+=j*12;p[1]+=j*10;
-  return{x:p[0],y:p[1]};
+function makeStand(s){
+  const zone=normZone(s),p=slotPos(zone,s.virtual_slot),products=shopProducts.get(s.id)||[];
+  const fresh=products.some(x=>freshDate(x.created_at)),online=!!s.is_online,pro=!!s.is_commercial;
+  const filtered=currentFilter==='all'||currentFilter===zone;
+  const type=pro?'pro':'basic',verified=!!(s.trader_verified||s.verified);
+  return `<button class="stand ${type} ${fresh?'fresh':''} ${online?'online':''} ${filtered?'':'hidden'}" type="button"
+    style="left:${p.x}px;top:${p.y}px;--cat:${ZONES[zone].color}" data-shop="${s.id}" data-zone="${zone}">
+    <span class="freshGlow"></span><span class="pennants"></span><span class="lantern"></span>
+    ${pro?`<span class="roof"></span><span class="kiosk"></span><span class="lights"></span><span class="counter"></span><span class="logoPlate">${s.logo_url?`<img src="${DB.esc(s.logo_url)}" alt="">`:DB.esc(s.name)}</span>${verified?'<span class="verified">✓</span>':''}`
+      :`<span class="canopy"></span><span class="pole l"></span><span class="pole r"></span><span class="table"></span><span class="crate"></span><span class="sign">${DB.esc(s.name)}</span>`}
+    <span class="deco">${decoIcons[zone]}</span>
+  </button>`;
 }
-function shopProducts(id){return listings.filter(x=>x.shop_id===id&&['active','reserved'].includes(x.status))}
-function freshForShop(s){
-  return shopProducts(s.id).some(x=>Date.now()-new Date(x.created_at).getTime()<86400000);
+function makeFree(zone,slot){
+  const p=slotPos(zone,slot);
+  return `<button class="stand free" type="button" style="left:${p.x}px;top:${p.y}px" data-free="${zone}"><span class="closed">Standplatz frei</span></button>`;
 }
-function standState(s){
-  const count=shopProducts(s.id).length;
-  return{count,new:freshForShop(s),online:false,empty:count===0};
-}
-function standHTML(o){
-  const c=zoneData[o.district]?.color||'#FF5A36',pos=objectPosition(o,objects.indexOf(o));
-  if(o.kind==='aggregator'){
-    return '<button class="stand aggregator" data-id="'+esc(o.id)+'" style="left:'+pos.x+'px;top:'+pos.y+'px;--c:'+c+'"><div class="pillar"><div class="screen">EINZEL<br>MARKT</div></div><span class="standLabel">'+esc(o.title)+'</span></button>';
+function renderMap(){
+  const occupied=new Map();
+  for(const s of shops){
+    if(Number(s.virtual_block||1)!==1)continue;
+    const z=normZone(s),key=z+':'+Number(s.virtual_slot||1);occupied.set(key,s);
   }
-  const st=standState(o),name=esc(o.name||'Stand'),deco=zoneData[o.district]?.deco||['🧺','📦'];
-  if(o.is_commercial){
-    return '<button class="stand boutique '+(st.empty?'empty':'')+'" data-id="'+esc(o.id)+'" style="left:'+pos.x+'px;top:'+pos.y+'px;--c:'+c+'"><div class="kiosk"><div class="lights"></div><div class="sign">'+name+'</div><div class="window"></div></div>'+(o.trader_verified||o.verified?'<span class="badge">✓ GEPRÜFT</span>':'')+(st.new?'<span class="newGlow"></span>':'')+'<span class="deco left">'+deco[0]+'</span><span class="deco right">'+deco[1]+'</span><span class="lantern '+(st.online?'on':'')+'"></span><span class="standLabel">'+name+'</span></button>';
-  }
-  return '<button class="stand privateStall '+(st.empty?'empty':'')+'" data-id="'+esc(o.id)+'" style="left:'+pos.x+'px;top:'+pos.y+'px;--c:'+c+'"><div class="roof"></div><i class="post a"></i><i class="post b"></i><div class="table"></div><div class="crate"></div>'+(st.new?'<span class="newGlow"></span>':'')+'<span class="deco left">'+deco[0]+'</span><span class="standLabel">'+name+'</span></button>';
-}
-function buildObjects(){
-  const visibleShops=shops.map(s=>({...s,kind:'shop',district:normalizeDistrict(s.virtual_district,(s.categories||[])[0])}));
-  const singles=listings.filter(x=>!x.shop_id).slice(0,6).map(x=>({...x,kind:'aggregator',district:'einzelmarkt'}));
-  objects=[...visibleShops,...singles];
-  if(demoMode&&objects.length<8){
-    const samples=[
-      {id:'demo-mode',name:'Lina Atelier',kind:'shop',district:'mode',is_commercial:true,trader_verified:true,description:'Mode, Accessoires und Einzelstücke.',categories:['Mode'],rating:4.9,rating_count:44},
-      {id:'demo-tech',name:'Pixel Werk',kind:'shop',district:'technik',is_commercial:true,trader_verified:true,description:'Gadgets, Zubehör und Technik.',categories:['Elektronik'],rating:4.8,rating_count:31},
-      {id:'demo-vintage',name:'Koffer & Kram',kind:'shop',district:'vintage',is_commercial:false,description:'Fundstücke mit Geschichte.',categories:['Vintage'],rating:4.7,rating_count:12},
-      {id:'demo-sport',name:'Roll & Ride',kind:'shop',district:'freizeit',is_commercial:false,description:'Boards, Bikes und Sport.',categories:['Freizeit'],rating:4.6,rating_count:8}
-    ];
-    objects.push(...samples);
-    $('demoPill').style.display='inline-flex';
-  }
-}
-function freeSlotHTML(d,idx){
-  const p=slots[d][idx],c=zoneData[d]?.color||'#777';
-  return '<div class="stand privateStall freeSlot" style="left:'+p[0]+'px;top:'+p[1]+'px;--c:'+c+'"><div class="roof"></div><i class="post a"></i><i class="post b"></i><div class="table"></div><div class="crate"></div><span class="standLabel">Freier Standplatz</span></div>';
-}
-function renderStands(){
-  const filtered=objects.filter(o=>activeDistrict==='all'||o.district===activeDistrict);
-  const usedByDistrict={mode:new Set(),technik:new Set(),vintage:new Set(),freizeit:new Set(),einzelmarkt:new Set()};
-  for(const o of filtered){
-    const base=slots[o.district]||[]; if(!base.length)continue;
-    const slot=(Number(o.virtual_slot)||((hashNum(o.id||'x')%base.length)+1))-1;
-    usedByDistrict[o.district]?.add(((slot%base.length)+base.length)%base.length);
-  }
-  let html=filtered.map(standHTML).join('');
-  for(const d of ['mode','technik','vintage','freizeit']){
-    if(activeDistrict!=='all'&&activeDistrict!==d)continue;
-    for(let i=0;i<Math.min(3,slots[d].length);i++)if(!usedByDistrict[d].has(i))html+=freeSlotHTML(d,i);
+  let html='';
+  for(const z of Object.keys(ZONES)){
+    for(let slot=1;slot<=24;slot++){
+      const s=occupied.get(z+':'+slot);
+      if(s)html+=makeStand(s);else if(slot<=12)html+=makeFree(z,slot);
+    }
   }
   $('stands').innerHTML=html;
-  $('mapStatus').textContent=filtered.length;
-  $('stands').querySelectorAll('.stand').forEach(b=>{
-    b.onclick=e=>{e.stopPropagation();const o=objects.find(x=>String(x.id)===String(b.dataset.id));if(o)openDrawer(o)};
-    b.onmouseenter=()=>{const o=objects.find(x=>String(x.id)===String(b.dataset.id));if(o)showProximity(o)};
-    b.onmouseleave=()=>{if(!nearestProximity())hideProximity()};
+  $('stands').querySelectorAll('[data-shop]').forEach(el=>{
+    el.onclick=e=>{e.stopPropagation();openShop(shopById.get(el.dataset.shop))};
+    el.onpointerenter=()=>{hoverShop=shopById.get(el.dataset.shop);updateProximity(true)};
+    el.onpointerleave=()=>{hoverShop=null;updateProximity()};
   });
-  updateProximity();
+  $('stands').querySelectorAll('[data-free]').forEach(el=>el.onclick=e=>{e.stopPropagation();showFree(el.dataset.free)});
+  $('infoPoint').classList.toggle('hidden',currentFilter!=='all'&&currentFilter!=='individual');
+  $('infoPoint').classList.toggle('fresh',individual.some(x=>freshDate(x.created_at)));
+  $('infoBubble').textContent=individual.length?individual.length+' Einzelanzeigen entdecken':'Einzelmarkt · noch ruhig';
+  updateNearby();
 }
-function showProximity(o){
-  const pos=objectPosition(o,objects.indexOf(o)),p=$('proximity'),count=o.kind==='shop'?shopProducts(o.id).length:1;
-  $('proxName').textContent=o.kind==='shop'?(o.name||'Stand'):(o.title||'Einzelanzeige');
-  $('proxMeta').textContent=o.kind==='shop'?((o.rating_count?('★ '+Number(o.rating||0).toFixed(1)+' · '):'')+count+(count===1?' Artikel':' Artikel')):(DB.euro(o.price)+' · '+(o.location||''));
-  $('proxTag').textContent=o.kind==='shop'?(o.is_commercial?'Händler-Boutique':'Privater Stand'):'Einzelmarkt';
-  p.style.left=(pos.x+(o.kind==='aggregator'?46:69))+'px';p.style.top=(pos.y-8)+'px';p.classList.add('show');
+function standCenter(s){
+  const z=normZone(s),p=slotPos(z,s.virtual_slot);return{x:p.x+66,y:p.y+52};
 }
-function hideProximity(){$('proximity').classList.remove('show')}
-function nearestProximity(){
+function nearestShop(){
   let best=null;
-  for(const o of objects){
-    if(activeDistrict!=='all'&&o.district!==activeDistrict)continue;
-    const p=objectPosition(o,objects.indexOf(o)),cx=p.x+(o.kind==='aggregator'?46:69),cy=p.y+56;
-    const edge=Math.max(0,Math.hypot(px-cx,py-cy)-(o.kind==='aggregator'?45:70));
-    if(!best||edge<best.edge)best={o,edge};
+  for(const s of shops){
+    if(Number(s.virtual_block||1)!==1)continue;
+    const z=normZone(s);if(currentFilter!=='all'&&currentFilter!==z)continue;
+    const p=standCenter(s),d=Math.hypot(px-p.x,py-p.y);
+    if(!best||d<best.d)best={s,d,p};
   }
-  return best&&best.edge<=40?best:null;
+  return best;
 }
-function updateProximity(){
-  $('stands').querySelectorAll('.stand').forEach(x=>x.classList.remove('focused'));
-  const n=nearestProximity();
-  if(!n){hideProximity();return}
-  const el=$('stands').querySelector('[data-id="'+CSS.escape(String(n.o.id))+'"]');if(el)el.classList.add('focused');
-  showProximity(n.o);
-}
-async function openDrawer(o){
-  activeObject=o;$('drawer').classList.add('on');$('drawerBackdrop').classList.add('on');$('drawer').setAttribute('aria-hidden','false');
-  const isShop=o.kind==='shop',count=isShop?shopProducts(o.id).length:1;
-  $('drawerTitle').textContent=isShop?(o.name||'Stand'):(o.title||'Einzelanzeige');
-  $('drawerMeta').textContent=isShop?((o.is_commercial?'Händler-Boutique':'Privater Stand')+' · '+(zoneData[o.district]?.label||'')):'Einzelmarkt · '+(o.location||'');
-  $('drawerLogo').innerHTML=isShop&&o.logo_url?'<img src="'+esc(o.logo_url)+'" alt="">':(isShop?esc((o.name||'D')[0].toUpperCase()):'▦');
-  $('drawerInfo').textContent=isShop?(o.description||'Dieser Stand baut sein Sortiment gerade aus.'):'Einzelanzeige ohne eigenen Stand. Sie ist direkt am zentralen Infopoint des Basars platziert.';
-  $('drawerActions').innerHTML=isShop?(String(o.id).startsWith('demo-')?'<span class="btn ghost" style="opacity:.55">Demo-Stand</span>':'<a class="btn primary" href="shop.html?id='+encodeURIComponent(o.id)+'">Stand vollständig öffnen</a><a class="btn ghost" href="shop.html?id='+encodeURIComponent(o.id)+'#kontakt">Nachricht</a>'):'<a class="btn primary" href="anzeige.html?id='+encodeURIComponent(o.id)+'">Artikel öffnen</a><a class="btn ghost" href="anzeige.html?id='+encodeURIComponent(o.id)+'#contactCard">Kontakt</a>';
-  if(isShop){
-    const ps=shopProducts(o.id).slice(0,12);
-    $('drawerProducts').innerHTML=ps.length?ps.map(productHTML).join(''):'<div class="emptyProducts">'+(String(o.id).startsWith('demo-')?'Demo-Stand ohne echte Artikel.':'Aktuell keine sichtbaren Artikel.')+'</div>';
-  }else $('drawerProducts').innerHTML=productHTML(o);
-}
-function productHTML(x){
-  const img=x.image_urls?.[0];
-  return '<a class="product" href="anzeige.html?id='+encodeURIComponent(x.id)+'"><div class="productPic">'+(img?'<img src="'+esc(img)+'" alt="'+esc(x.title)+'" loading="lazy">':'Kein Bild')+'</div><div class="productBody"><div class="productTitle">'+esc(x.title)+'</div><div class="productPrice">'+DB.euro(x.price)+'</div></div></a>';
-}
-function closeDrawer(){$('drawer').classList.remove('on');$('drawerBackdrop').classList.remove('on');$('drawer').setAttribute('aria-hidden','true');activeObject=null}
-$('closeDrawer').onclick=closeDrawer;$('drawerBackdrop').onclick=closeDrawer;
-function camera(){
-  const r=$('viewport').getBoundingClientRect(),ww=WORLD.w*scale,hh=WORLD.h*scale;
-  tx=r.width/2-px*scale;ty=r.height/2-py*scale;
-  tx=ww<=r.width?(r.width-ww)/2:Math.min(0,Math.max(r.width-ww,tx));
-  ty=hh<=r.height?(r.height-hh)/2:Math.min(0,Math.max(r.height-hh,ty));
-  $('world').style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';
-  $('player').style.left=(px-18)+'px';$('player').style.top=(py-18)+'px';
+function updateNearby(){
+  const n=nearestShop();nearShop=n&&n.d<145?n.s:null;
+  $('stands').querySelectorAll('.stand.near').forEach(x=>x.classList.remove('near'));
+  if(nearShop)document.querySelector('[data-shop="'+nearShop.id+'"]')?.classList.add('near');
   updateProximity();
 }
-function move(dx,dy){px=Math.max(25,Math.min(WORLD.w-25,px+dx));py=Math.max(25,Math.min(WORLD.h-25,py+dy));target=null;camera()}
-function walkTo(x,y){
-  target={x:Math.max(25,Math.min(WORLD.w-25,x)),y:Math.max(25,Math.min(WORLD.h-25,y))};
-  cancelAnimationFrame(raf);
-  const step=()=>{if(!target)return;const dx=target.x-px,dy=target.y-py,d=Math.hypot(dx,dy);if(d<5){px=target.x;py=target.y;target=null;camera();return}const v=Math.min(12,d);px+=dx/d*v;py+=dy/d*v;camera();raf=requestAnimationFrame(step)};step();
+function updateProximity(forceHover=false){
+  const s=hoverShop||nearShop,box=$('proximity');
+  if(!s){box.classList.add('hidden');return}
+  const p=standCenter(s),items=shopProducts.get(s.id)||[],rating=Number(s.rating||0);
+  box.style.left=p.x+'px';box.style.top=p.y+'px';
+  box.innerHTML=`<div class="kicker">${s.is_commercial?'HÄNDLER-BOUTIQUE':'PRIVATER STAND'}</div><b>${DB.esc(s.name)}</b><small>${rating?('★ '+rating.toFixed(1)+' · '):''}${items.length} Artikel</small><div class="proxActions"><button type="button" data-open>Stand öffnen</button></div>`;
+  box.classList.remove('hidden');box.querySelector('[data-open]').onclick=e=>{e.stopPropagation();openShop(s)};
 }
-function screenToWorld(clientX,clientY){
-  const r=$('viewport').getBoundingClientRect();return{x:(clientX-r.left-tx)/scale,y:(clientY-r.top-ty)/scale};
+function productCard(x){
+  return `<a class="product" href="anzeige.html?id=${encodeURIComponent(x.id)}"><div class="productPic">${x.image_urls?.[0]?`<img src="${DB.esc(x.image_urls[0])}" alt="${DB.esc(x.title)}" loading="lazy">`:'Kein Bild'}</div><div class="productInfo"><b>${DB.esc(x.title)}</b><strong>${euro(x.price)}</strong><small>${DB.esc(x.location||'')}</small></div></a>`;
 }
-$('viewport').addEventListener('pointerup',e=>{
-  if(e.target.closest('.stand,.zoomHud,.drawer'))return;
-  const p=screenToWorld(e.clientX,e.clientY);walkTo(p.x,p.y);
-});
+function openShop(s){
+  if(!s)return;drawerTarget=s;
+  const items=shopProducts.get(s.id)||[],z=normZone(s),verified=!!(s.trader_verified||s.verified);
+  $('drawerLogo').innerHTML=s.logo_url?`<img src="${DB.esc(s.logo_url)}" alt="">`:DB.esc((s.name||'D')[0].toUpperCase());
+  $('drawerName').textContent=s.name||'Stand';
+  $('drawerMeta').textContent=[ZONES[z].label,s.city,s.postal_code].filter(Boolean).join(' · ');
+  $('drawerBadges').innerHTML=`<span class="badge ${s.is_commercial?'pro':''}">${s.is_commercial?'HÄNDLER · PRO':'PRIVATER STAND'}</span>${verified?'<span class="badge ok">✓ Verifiziert</span>':''}${items.some(x=>freshDate(x.created_at))?'<span class="badge">NEU &lt; 24H</span>':''}`;
+  $('drawerIntro').textContent=s.description||'Dieser Stand präsentiert seine aktuellen Artikel auf dem DeinBasar.';
+  $('drawerActions').innerHTML=`<a class="action primary" href="shop.html?id=${encodeURIComponent(s.id)}">Stand komplett öffnen</a><a class="action" href="shop.html?id=${encodeURIComponent(s.id)}#kontakt">Nachricht senden</a>`;
+  $('drawerCount').textContent=items.length+(items.length===1?' Artikel':' Artikel');
+  $('drawerProducts').innerHTML=items.length?items.slice(0,18).map(productCard).join(''):'<div class="emptyProducts">Dieser Stand hat gerade keine sichtbaren Artikel.</div>';
+  openDrawer();
+}
+function openIndividual(){
+  drawerTarget={kind:'individual'};$('drawerLogo').textContent='▣';$('drawerName').textContent='Einzelmarkt';$('drawerMeta').textContent='Infopoint · Anzeigen ohne eigenen Stand';
+  $('drawerBadges').innerHTML='<span class="badge">AGGREGATOR</span>'+(individual.some(x=>freshDate(x.created_at))?'<span class="badge">NEU &lt; 24H</span>':'');
+  $('drawerIntro').textContent='Hier findest du einzelne Anzeigen von Nutzern, die keinen eigenen Basar-Stand eröffnet haben.';
+  $('drawerActions').innerHTML='<a class="action primary" href="verkaufen.html">Eigene Anzeige aufgeben</a><a class="action" href="haendler.html">Eigenen Stand eröffnen</a>';
+  $('drawerCount').textContent=individual.length+(individual.length===1?' Anzeige':' Anzeigen');
+  $('drawerProducts').innerHTML=individual.length?individual.slice(0,24).map(productCard).join(''):'<div class="emptyProducts">Aktuell gibt es hier keine öffentlichen Einzelanzeigen.</div>';
+  openDrawer();
+}
+function showFree(zone){
+  drawerTarget={kind:'free',zone};$('drawerLogo').textContent='＋';$('drawerName').textContent='Freier Standplatz';$('drawerMeta').textContent=ZONES[zone].label;
+  $('drawerBadges').innerHTML='<span class="badge">FREI</span>';
+  $('drawerIntro').textContent='Hier ist noch Platz für einen privaten Stand oder eine Händler-Boutique. Dein Bereich wird anhand deiner Hauptkategorie auf dem Basar einsortiert.';
+  $('drawerActions').innerHTML='<a class="action primary" href="haendler.html">Stand eröffnen</a><a class="action" href="regeln.html">Regeln ansehen</a>';
+  $('drawerCount').textContent='';$('drawerProducts').innerHTML='<div class="emptyProducts">Nach der Einrichtung erscheinen deine freigegebenen Artikel direkt an deinem Stand.</div>';openDrawer();
+}
+function openDrawer(){$('drawer').classList.add('on');$('drawerShade').classList.add('on')}
+function closeDrawer(){$('drawer').classList.remove('on');$('drawerShade').classList.remove('on');drawerTarget=null}
+$('closeDrawer').onclick=closeDrawer;$('drawerShade').onclick=closeDrawer;$('infoPoint').onclick=e=>{e.stopPropagation();openIndividual()};
+
+function applyFilter(f){
+  currentFilter=f;document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('on',b.dataset.filter===f));renderMap();
+  if(f==='individual'){moveTo(1275,930,true);return}
+  if(f!=='all'){const z=ZONES[f];if(z)moveTo(z.center[0],z.center[1],true)}
+}
+document.querySelectorAll('.filter').forEach(b=>b.onclick=()=>applyFilter(b.dataset.filter));
+
+function doSearch(){
+  const q=$('search').value.trim().toLowerCase(),box=$('results');if(!q){box.classList.add('hidden');return}
+  const rs=[];
+  for(const s of shops){
+    const text=[s.name,s.city,...(s.categories||[])].join(' ').toLowerCase();
+    if(text.includes(q))rs.push({type:'shop',s,label:s.name,meta:(s.is_commercial?'Händler':'Privat')+' · '+ZONES[normZone(s)].label});
+  }
+  for(const x of listings){
+    const text=[x.title,x.category,x.location].join(' ').toLowerCase();
+    if(text.includes(q))rs.push({type:'listing',x,label:x.title,meta:euro(x.price)+' · '+(x.shop_id?'am Stand':'Einzelmarkt')});
+  }
+  box.innerHTML=rs.slice(0,10).map((r,i)=>`<button class="result" type="button" data-r="${i}"><em>${r.type==='shop'?'STAND':'ARTIKEL'}</em><b>${DB.esc(r.label)}</b><small>${DB.esc(r.meta)}</small></button>`).join('')||'<div class="result"><b>Keine Treffer</b><small>Versuche einen anderen Begriff.</small></div>';
+  box.classList.remove('hidden');box.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>goResult(rs[Number(b.dataset.r)]));
+}
+function goResult(r){
+  $('results').classList.add('hidden');
+  if(r.type==='shop'){const p=standCenter(r.s);applyFilter(normZone(r.s));moveTo(p.x,p.y+120,true);setTimeout(()=>openShop(r.s),300);return}
+  if(r.x.shop_id&&shopById.has(r.x.shop_id)){const s=shopById.get(r.x.shop_id),p=standCenter(s);applyFilter(normZone(s));moveTo(p.x,p.y+120,true);setTimeout(()=>openShop(s),300);return}
+  applyFilter('individual');setTimeout(openIndividual,300);
+}
+$('searchBtn').onclick=doSearch;$('search').onkeydown=e=>{if(e.key==='Enter')doSearch();if(e.key==='Escape')$('results').classList.add('hidden')};
+
+function minScale(){
+  const r=$('viewport').getBoundingClientRect();return Math.max(window.innerWidth<700?.40:.50,Math.min(.72,Math.min(r.width/W,r.height/H)*1.55))
+}
+function setTransform(){
+  const r=$('viewport').getBoundingClientRect(),ww=W*scale,hh=H*scale;
+  if(ww<=r.width)tx=(r.width-ww)/2;else tx=Math.min(0,Math.max(r.width-ww,tx));
+  if(hh<=r.height)ty=(r.height-hh)/2;else ty=Math.min(0,Math.max(r.height-hh,ty));
+  $('world').style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';
+  $('player').style.left=(px-19)+'px';$('player').style.top=(py-19)+'px';updateNearby();
+}
+function centerPlayer(smooth=false){
+  const r=$('viewport').getBoundingClientRect();tx=r.width/2-px*scale;ty=r.height/2-py*scale;
+  if(smooth)$('world').style.transition='transform .35s cubic-bezier(.2,.8,.2,1)';
+  setTransform();if(smooth)setTimeout(()=>$('world').style.transition='',380);
+}
+function moveTo(x,y,smooth=false){px=Math.max(30,Math.min(W-30,x));py=Math.max(30,Math.min(H-30,y));centerPlayer(smooth)}
+function move(dx,dy){moveTo(px+dx,py+dy)}
+function zoom(d){
+  const r=$('viewport').getBoundingClientRect(),cx=(r.width/2-tx)/scale,cy=(r.height/2-ty)/scale;
+  scale=Math.max(minScale(),Math.min(1.15,scale+d));tx=r.width/2-cx*scale;ty=r.height/2-cy*scale;setTransform()
+}
+$('zoomIn').onclick=()=>zoom(.1);$('zoomOut').onclick=()=>zoom(-.1);function home(){scale=Math.max(minScale(),.66);moveTo(1275,1070,true)}
+$('home').onclick=home;$('homeMobile').onclick=home;
+document.querySelectorAll('[data-move]').forEach(b=>b.onclick=()=>({up:()=>move(0,-75),down:()=>move(0,75),left:()=>move(-75,0),right:()=>move(75,0)}[b.dataset.move]()));
 window.addEventListener('keydown',e=>{
   if(['INPUT','TEXTAREA'].includes(document.activeElement?.tagName))return;
-  const m={w:[0,-42],arrowup:[0,-42],s:[0,42],arrowdown:[0,42],a:[-42,0],arrowleft:[-42,0],d:[42,0],arrowright:[42,0]}[e.key.toLowerCase()];
+  const m={w:[0,-48],arrowup:[0,-48],s:[0,48],arrowdown:[0,48],a:[-48,0],arrowleft:[-48,0],d:[48,0],arrowright:[48,0]}[e.key.toLowerCase()];
   if(m){e.preventDefault();move(...m)}
 });
-function zoom(by){scale=Math.max(.48,Math.min(1.15,scale+by));camera()}
-$('zoomIn').onclick=()=>zoom(.1);$('zoomOut').onclick=()=>zoom(-.1);$('homeBtn').onclick=()=>{px=800;py=675;scale=window.innerWidth<700?.62:.78;camera()};
-function applyDistrict(d){
-  activeDistrict=d;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x.dataset.district===d));renderStands();
-  const candidates=objects.filter(o=>d==='all'||o.district===d);if(candidates.length){const p=objectPosition(candidates[0],objects.indexOf(candidates[0]));walkTo(p.x,p.y+120)}
-}
-$('districtChips').onclick=e=>{const b=e.target.closest('[data-district]');if(b)applyDistrict(b.dataset.district)};
-function renderLatest(){
-  const rows=listings.slice().sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,8);
-  $('latestCount').textContent=rows.length+(rows.length===1?' Artikel':' Artikel');
-  $('latestGrid').innerHTML=rows.length?rows.map(x=>'<a class="latestCard" href="anzeige.html?id='+encodeURIComponent(x.id)+'"><div class="latestPic">'+(x.image_urls?.[0]?'<img src="'+esc(x.image_urls[0])+'" alt="'+esc(x.title)+'" loading="lazy">':'Kein Bild')+'</div><div class="latestBody"><b>'+esc(x.title)+'</b><strong>'+DB.euro(x.price)+'</strong><small>'+esc(x.location||'')+' · '+esc(x.category||'')+'</small></div></a>').join(''):'<div class="emptyProducts" style="grid-column:1/-1">Noch keine öffentlichen Artikel.</div>';
-}
-function doSearch(){
-  const q=$('searchInput').value.trim().toLowerCase(),box=$('searchResults'),grid=$('searchGrid');
-  if(!q){box.classList.remove('on');return}
-  const sh=shops.filter(s=>[s.name,s.description,s.city,(s.categories||[]).join(' ')].join(' ').toLowerCase().includes(q)).slice(0,6);
-  const li=listings.filter(x=>[x.title,x.description,x.category,x.location].join(' ').toLowerCase().includes(q)).slice(0,8);
-  const items=[
-    ...sh.map(s=>({kind:'shop',id:s.id,name:s.name,meta:(s.city||'')+' · '+(s.is_commercial?'Händler':'Stand')})),
-    ...li.map(x=>({kind:'listing',id:x.id,name:x.title,meta:DB.euro(x.price)+' · '+(x.location||'')}))
-  ];
-  grid.innerHTML=items.length?items.map(x=>'<div class="searchItem"><div class="grow"><b>'+esc(x.name)+'</b><small>'+esc(x.meta)+'</small></div><button data-map="'+esc(x.kind)+':'+esc(x.id)+'">Karte</button><a href="'+(x.kind==='shop'?'shop.html?id=':'anzeige.html?id=')+encodeURIComponent(x.id)+'">Öffnen</a></div>').join(''):'<div class="emptyProducts" style="grid-column:1/-1">Keine Treffer.</div>';
-  box.classList.add('on');
-  grid.querySelectorAll('[data-map]').forEach(b=>b.onclick=()=>focusSearch(b.dataset.map));
-}
-function focusSearch(key){
-  const[k,id]=key.split(':'),o=k==='shop'?objects.find(x=>x.kind==='shop'&&String(x.id)===id):objects.find(x=>x.kind==='aggregator'&&String(x.id)===id);
-  if(!o){if(k==='listing'){const x=listings.find(a=>String(a.id)===id);if(x?.shop_id){const s=objects.find(a=>a.kind==='shop'&&String(a.id)===String(x.shop_id));if(s)return focusObject(s)}}return}
-  focusObject(o);
-}
-function focusObject(o){activeDistrict='all';document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x.dataset.district==='all'));renderStands();const p=objectPosition(o,objects.indexOf(o));walkTo(p.x+(o.kind==='aggregator'?46:69),p.y+145);setTimeout(()=>showProximity(o),450)}
-$('searchBtn').onclick=doSearch;$('searchInput').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();doSearch()}};
+let down=null;
+$('viewport').onpointerdown=e=>{if(e.target.closest('button,.hud,.drawer'))return;down={x:e.clientX,y:e.clientY}};
+$('viewport').onpointerup=e=>{
+  if(!down)return;const dist=Math.hypot(e.clientX-down.x,e.clientY-down.y);down=null;if(dist>10)return;
+  const r=$('viewport').getBoundingClientRect(),x=(e.clientX-r.left-tx)/scale,y=(e.clientY-r.top-ty)/scale;moveTo(x,y,true)
+};
+$('viewport').onpointercancel=()=>down=null;
+window.addEventListener('resize',()=>centerPlayer());
+
 async function load(){
+  $('statusText').textContent='Stände werden geladen …';
   try{
     const [s,l]=await Promise.all([
-      publicRows('public_shops',{select:'id,owner_id,name,description,city,postal_code,categories,logo_url,is_commercial,verified,trader_verified,rating,rating_count,accent_color,virtual_district,virtual_block,virtual_slot,created_at',order:'created_at.desc',limit:'120'}),
-      publicRows('listings',{status:'in.(active,reserved)',select:'id,seller_id,title,description,price,category,location,image_urls,status,shop_id,seller_kind,virtual_district,virtual_block,virtual_slot,created_at',order:'created_at.desc',limit:'240'})
+      api('/rest/v1/public_shops?select=id,owner_id,name,description,city,postal_code,categories,logo_url,verified,trader_verified,rating,rating_count,is_commercial,virtual_district,virtual_block,virtual_slot,updated_at&order=virtual_block.asc,virtual_slot.asc&limit=120'),
+      api('/rest/v1/listings?status=in.(active,reserved)&select=id,shop_id,title,price,location,image_urls,category,seller_kind,created_at&order=created_at.desc&limit=600')
     ]);
-    shops=s||[];listings=l||[];buildObjects();renderStands();renderLatest();$('shopCount').textContent=shops.length;$('listingCount').textContent=listings.length;
-  }catch(e){console.error(e);$('mapStatus').textContent='–'}
-  $('mapLoading').classList.add('hide');camera();
+    shops=(s||[]).filter(x=>x.virtual_slot&&x.virtual_district);listings=l||[];individual=listings.filter(x=>!x.shop_id);
+    shopById=new Map(shops.map(x=>[x.id,x]));shopProducts=new Map();
+    for(const x of listings){if(!x.shop_id)continue;if(!shopProducts.has(x.shop_id))shopProducts.set(x.shop_id,[]);shopProducts.get(x.shop_id).push(x)}
+    renderMap();$('statusText').textContent=shops.length+' Stände · '+listings.length+' Artikel';$('liveDot').classList.add('live');
+  }catch(e){console.error(e);$('statusText').textContent='Basar konnte gerade nicht vollständig geladen werden';renderMap()}
+  scale=Math.max(minScale(),window.innerWidth<700?.55:.68);centerPlayer()
 }
-window.addEventListener('resize',camera);
-scale=window.innerWidth<700?.62:.78;camera();load();
+load();
 </script>
 </body>
 </html>
