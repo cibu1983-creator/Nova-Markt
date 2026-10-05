@@ -65,6 +65,124 @@ linear-gradient(135deg,#e9e1d4,#ddd2c1);box-shadow:inset 0 0 0 1px #c9beac}
 .empty{grid-column:1/-1;background:#fff;border:1px solid var(--l);border-radius:18px;padding:25px;text-align:center;color:var(--m)}
 dialog{border:0;border-radius:23px;padding:0;width:min(470px,calc(100% - 20px));box-shadow:0 25px 70px #0005}dialog::backdrop{background:#0008}.sheet{padding:20px}.sheetTop{display:flex;gap:12px;align-items:center}.sheetLogo{width:58px;height:58px;border-radius:16px;background:#19191b;color:#fff;display:grid;place-items:center;font-size:22px;font-weight:950;overflow:hidden}.sheetLogo img{width:100%;height:100%;object-fit:cover}.sheet h3{font-size:24px;margin:0}.sheet p{color:var(--m);line-height:1.5}.sheetActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:15px}.sheetClose{position:absolute;right:12px;top:12px;border:0;background:#f2f2f3;border-radius:10px;width:36px;height:36px;font-weight:900}
 .merchantCta{background:#19191b;color:#fff;border-radius:22px;padding:20px;display:flex;gap:18px;align-items:center;margin-bottom:44px}.merchantCta h3{margin:0 0 5px;font-size:23px}.merchantCta p{margin:0;color:#aaa;line-height:1.45}.merchantCta .btn{margin-left:auto}
+
+/* 2D MARKET V2 — klare Stadtstruktur auch in der Übersicht */
+.worldViewport{
+  background:
+    radial-gradient(circle at 50% 48%,#d9d0bf 0 18%,transparent 19%),
+    linear-gradient(135deg,#c8c1b2,#b9b2a4);
+  border:1px solid #ffffff22;
+  box-shadow:inset 0 0 0 1px #00000012,inset 0 20px 60px #00000012;
+}
+.world{
+  --stone:#d7d0c2;--road:#7c776e;--walk:#c7bfb0;--curb:#eee7db;--gold:#b49254;
+  background:
+    linear-gradient(90deg,transparent 0 23%,var(--walk) 23% 26%,var(--road) 26% 34%,var(--walk) 34% 37%,transparent 37% 63%,var(--walk) 63% 66%,var(--road) 66% 74%,var(--walk) 74% 77%,transparent 77%),
+    linear-gradient(0deg,transparent 0 33%,var(--walk) 33% 36%,var(--road) 36% 47%,var(--walk) 47% 50%,transparent 50% 52%,var(--walk) 52% 55%,var(--road) 55% 66%,var(--walk) 66% 69%,transparent 69%),
+    repeating-linear-gradient(45deg,#ddd6c8 0 12px,#d7d0c2 12px 24px);
+  box-shadow:inset 0 0 0 2px #a9a293;
+}
+.world:before{
+  left:570px;top:330px;width:460px;height:340px;border-radius:92px;
+  background:linear-gradient(135deg,#d8cdb9,#c9bea9);
+  box-shadow:inset 0 0 0 18px #ece4d7,0 0 0 2px #a89d89;
+}
+.world:after{
+  content:"";position:absolute;left:0;right:0;top:493px;height:14px;
+  background:repeating-linear-gradient(90deg,#d8c89f 0 36px,transparent 36px 66px);
+  opacity:.75;pointer-events:none;z-index:0;
+}
+.streetName{
+  position:absolute;z-index:1;color:#f7f1e7;background:#2b2926d9;border:1px solid #ffffff1c;
+  border-radius:999px;padding:8px 15px;font-size:14px;font-weight:950;letter-spacing:2px;
+  box-shadow:0 8px 24px #0002;white-space:nowrap;pointer-events:none
+}
+.streetName.time{left:650px;top:482px}
+.streetName.market{left:743px;top:130px;transform:rotate(90deg);transform-origin:center}
+.streetName.arcade{left:694px;top:835px}
+.marketGateLabel{
+  position:absolute;z-index:2;color:#3e382f;font-size:18px;font-weight:1000;letter-spacing:1.2px;
+  text-transform:uppercase;text-shadow:0 1px #fff;pointer-events:none
+}
+.marketGateLabel.west{left:42px;top:474px}.marketGateLabel.east{right:42px;top:474px}
+.marketGateLabel.north{left:720px;top:40px}.marketGateLabel.south{left:710px;bottom:40px}
+.plaza{
+  left:635px;top:402px;width:330px;height:196px;border-radius:50%;
+  background:radial-gradient(circle at 50% 46%,#a7c9c9 0 18%,#6e9fa4 19% 23%,#e9e0cf 24% 56%,#c6b89f 57% 100%);
+  border:8px solid #f0e9dc;box-shadow:0 10px 35px #0002,inset 0 0 0 3px #b6aa96;
+  font-size:24px;z-index:2
+}
+.plaza:before{content:"";position:absolute;width:76px;height:76px;border-radius:50%;background:#7eb2b5;border:9px solid #ede4d5;box-shadow:0 5px 18px #0003}
+.plaza span{position:relative;z-index:2;background:#fffaf0e8;border:1px solid #d9cdb7;border-radius:999px;padding:10px 18px;box-shadow:0 6px 18px #0001}
+.plaza small{font-size:11px}
+.tree{width:42px;height:42px;background:#487c4e;border:7px solid #315f39;box-shadow:0 9px 0 #0001,0 0 0 3px #d9cfbf}
+.lamp{width:10px;height:10px;box-shadow:0 0 0 5px #f1d99a,0 4px 12px #0005}
+.districtLabel{display:none}
+
+.stall{
+  width:196px;height:126px;border-radius:12px;border:2px solid #ded5c7;background:#fbf8f1;
+  box-shadow:0 11px 18px #00000025,0 2px 0 #fff inset;overflow:visible;
+  transition:transform .16s ease,box-shadow .16s ease,filter .16s ease;
+}
+.stall:before{
+  content:"";position:absolute;left:7px;right:7px;bottom:-9px;height:9px;background:#0002;
+  filter:blur(5px);border-radius:50%;z-index:-1
+}
+.stall:hover,.stall.focused{transform:translateY(-7px) scale(1.02);box-shadow:0 18px 32px #0004}
+.awning{height:26px;border-radius:10px 10px 0 0}
+.stallBody{height:96px;padding:10px;grid-template-columns:44px 1fr;gap:9px}
+.stallLogo{width:44px;height:44px;border-radius:9px}
+.stallName{font-size:14px;letter-spacing:-.1px}.stallMeta{font-size:9px}.stallBadge{font-size:8px}
+.slotNo{
+  right:7px;top:31px;background:#171719;color:#fff;border-radius:999px;padding:3px 6px;
+  font-size:8px;z-index:4
+}
+
+/* Gewerbliche Händler wirken wie echte Boutiquen */
+.stall.boutique{background:#181715;border-color:#c9ad72;color:#fff;box-shadow:0 14px 24px #0005,0 0 0 1px #ddc58b55 inset}
+.stall.boutique .awning{background:linear-gradient(90deg,#b3914e,#f0ddb0 50%,#9c7c3c)}
+.stall.boutique .stallLogo{background:#f6efe2;color:#1a1814;border:1px solid #d4bb82}
+.stall.boutique .stallName{color:#fff;font-family:Georgia,serif;letter-spacing:.3px}
+.stall.boutique .stallMeta{color:#c9c0b3}
+.stall.boutique .stallBadge.com{background:#e6cf96;color:#332912}
+.stall.boutique .slotNo{background:#e2c786;color:#2e2515}
+.stall.marketStand{background:#fffdf8;border-color:#d8cebf}
+.stall.marketStand .awning{background:repeating-linear-gradient(90deg,var(--accent) 0 22px,#fff 22px 44px)}
+.stall.itemSpot{border-color:#7ea1d1;background:#f5f8ff}
+.stall.itemSpot .awning{background:linear-gradient(90deg,#1f579e,#72a1df)}
+.stall.free{background:#d5cec0;border:2px dashed #8d8476;box-shadow:none;opacity:.78}
+.stall.free .awning{background:#aaa294}
+.freeBody{height:98px;color:#5e574d;font-size:12px}
+.stall.free .slotNo{display:block}
+
+/* Hauptplatz-Portale sind keine kleinen Karten mehr, sondern Gebäude-Eingänge */
+.world[data-district="hauptplatz"] .stall.portal{
+  width:230px;height:150px;border-radius:9px;border:2px solid #d8c9ad;background:#f8f1e4;
+  box-shadow:0 14px 28px #0003,0 -5px 0 #5b5143 inset;overflow:hidden
+}
+.world[data-district="hauptplatz"] .stall.portal .awning{height:34px;background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 35%,#f8edd9))}
+.world[data-district="hauptplatz"] .stall.portal .stallBody{height:112px;grid-template-columns:54px 1fr;padding:13px}
+.world[data-district="hauptplatz"] .stall.portal .stallLogo{width:54px;height:54px;border-radius:12px;font-size:23px}
+.world[data-district="hauptplatz"] .stall.portal .stallName{font-size:18px;line-height:1.05}
+.world[data-district="hauptplatz"] .stall.portal .stallMeta{font-size:10px;white-space:normal;line-height:1.25;max-height:28px}
+.world[data-district="hauptplatz"] .stall.portal .stallBadge{font-size:9px;margin-top:7px;background:#171719;color:#fff}
+
+/* Übersicht: Beschriftungen bleiben hierarchisch klar statt zu Mini-UI zu schrumpfen */
+.world.zoomFar .stallMeta{display:none}
+.world.zoomFar .stallBadge{font-size:10px;padding:4px 7px}
+.world.zoomFar .stallName{font-size:17px}
+.world.zoomFar .slotNo{font-size:10px;padding:4px 7px}
+.world.zoomFar .streetName{font-size:17px;padding:10px 18px}
+.world.zoomFar .marketGateLabel{font-size:21px}
+.world.zoomFar .plaza{font-size:27px}
+
+.mapLegend{
+  position:absolute;left:14px;top:14px;z-index:14;display:flex;gap:6px;flex-wrap:wrap;
+  max-width:520px;pointer-events:none
+}
+.mapLegend span{background:#171719dd;color:#fff;border:1px solid #ffffff22;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:850;box-shadow:0 6px 16px #0002}
+.mapLegend .gold{background:#8a6c33}.mapLegend .blue{background:#285f9f}.mapLegend .cream{background:#6f675a}
+
 @media(max-width:900px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(3,1fr)}.shopStrip{grid-template-columns:1fr}.worldViewport{height:620px}}
 @media(max-width:700px){.nearbyPanel{left:10px;right:10px;bottom:152px;width:auto}.navlinks .hideMob{display:none}.search{grid-template-columns:1fr}.resultCols{grid-template-columns:1fr}.hero h1{font-size:48px}.worldViewport{height:68vh;min-height:500px}.dpad{display:grid}.controlsPanel>.ctrlRow{display:none}.howto .desktop{display:none}.grid{grid-template-columns:repeat(2,1fr)}.merchantCta{display:block}.merchantCta .btn{width:100%;margin:14px 0 0}.shopCard{grid-template-columns:48px 1fr}.shopLogo{width:48px;height:48px}.shopCard .arrow{display:none}.bazaarTop h2{font-size:17px}.statusPill{display:none}}
 @media(max-width:430px){.wrap{width:min(100% - 16px,1180px)}.bazaarShell{border-radius:20px;padding:7px}.worldViewport{border-radius:16px}.hero{padding-top:24px}.heroSide{display:none}.grid{gap:8px}.body{padding:9px}.sheetActions{grid-template-columns:1fr}.blockNav span{min-width:48px}}
@@ -74,8 +192,8 @@ dialog{border:0;border-radius:23px;padding:0;width:min(470px,calc(100% - 20px));
 <header><nav class="wrap"><a class="brand" href="basar.html">dein<span>basar</span>.de</a><div class="navlinks"><a class="btn light hideMob" href="haendler.html">Stand eröffnen</a><a class="btn orange" href="verkaufen.html">＋ <span class="hideMob">Anzeige</span></a><a class="btn light" href="konto.html">Konto</a></div></nav></header>
 <main class="wrap">
 <section class="hero">
-  <div><div class="eyebrow">VIRTUELLER 2D-BASAR</div><h1>Ein Basar, der mitwächst.</h1><p>Der Hauptplatz führt in übersichtliche Marktviertel. Jeder Stand bekommt automatisch Viertel, Block und Standnummer. Einzelanzeigen ohne eigenen Stand liegen im eigenen Einzelmarkt – niemand verschwindet aus dem Basar.</p></div>
-  <div class="heroSide"><b>Einfach finden statt endlos laufen</b><div class="hint">Suche oben nach Artikel oder Händler. DeinBasar zeigt passende Treffer und kann dich direkt zum Stand oder zur Einzelanzeige auf der 2D-Karte führen. Bei vielen Anbietern entstehen automatisch weitere Blöcke mit jeweils höchstens 24 Plätzen.</div></div>
+  <div><div class="eyebrow">VIRTUELLER 2D-BASAR</div><h1>Wie ein echter Markt. Nur digital.</h1><p>Flaniere vom Hauptplatz über den Time Boulevard in Marktviertel, Boutiquen und Standgassen. Auch weit herausgezoomt bleiben Straßen, Viertel und Standplätze erkennbar. Jeder Anbieter bekommt eine feste Adresse aus Viertel, Block und Standnummer.</p></div>
+  <div class="heroSide"><b>Marktplatz statt Karten-UI</b><div class="hint">Dunkle Goldfassaden markieren Händler-Boutiquen, helle Marktstände private Verkäufer und blaue Kioske den Einzelmarkt. Suche führt dich weiterhin direkt zur richtigen Marktadresse.</div></div>
 </section>
 <div class="search"><input id="q" placeholder="Was suchst du? z. B. Fahrrad, iPhone, Vintage" autocomplete="off"><input id="place" placeholder="Ort / PLZ optional" autocomplete="postal-code"><button id="searchBtn" class="btn orange" type="button">Suchen</button></div>
 <div id="districts" class="districts"></div>
@@ -83,13 +201,17 @@ dialog{border:0;border-radius:23px;padding:0;width:min(470px,calc(100% - 20px));
 
 <section class="bazaarShell">
   <div class="bazaarTop"><h2 id="bazaarTitle">Hauptplatz</h2><div class="grow"></div><div id="blockNav" class="blockNav hidden"><button id="prevBlock" type="button">←</button><span id="blockLabel">Block 1</span><button id="nextBlock" type="button">→</button></div><span id="bazaarStatus" class="statusPill">Basar wird geladen …</span></div>
-  <div id="viewport" class="worldViewport"><div id="world" class="world">
-    <div class="plaza"><span id="plazaTitle">HAUPTPLATZ<small id="plazaSub">Wähle dein Viertel</small></span></div>
-    <div class="districtLabel" style="left:74px;top:462px">Westgasse</div><div class="districtLabel" style="left:1400px;top:462px">Ostgasse</div><div class="districtLabel" style="left:710px;top:90px">Nordpassage</div><div class="districtLabel" style="left:700px;top:890px">Südpassage</div>
-    <div class="tree" style="left:630px;top:390px"></div><div class="tree" style="left:935px;top:390px"></div><div class="tree" style="left:630px;top:580px"></div><div class="tree" style="left:935px;top:580px"></div>
-    <div class="lamp" style="left:785px;top:392px"></div><div class="lamp" style="left:785px;top:595px"></div>
+  <div id="viewport" class="worldViewport"><div id="world" class="world" data-district="hauptplatz">
+    <div class="streetName time">TIME BOULEVARD</div>
+    <div class="streetName market">MARKTHALLEN-PASSAGE</div>
+    <div class="streetName arcade">DESIGN ARKADE</div>
+    <div class="marketGateLabel west">WESTTOR</div><div class="marketGateLabel east">OSTTOR</div><div class="marketGateLabel north">NORDARKADE</div><div class="marketGateLabel south">SÜDPASSAGE</div>
+    <div class="plaza"><span id="plazaTitle">HAUPTPLATZ<small id="plazaSub">Boutiquen · Stände · Marktviertel</small></span></div>
+    <div class="tree" style="left:610px;top:365px"></div><div class="tree" style="left:948px;top:365px"></div><div class="tree" style="left:610px;top:595px"></div><div class="tree" style="left:948px;top:595px"></div>
+    <div class="lamp" style="left:785px;top:365px"></div><div class="lamp" style="left:785px;top:620px"></div>
     <div id="stalls"></div><div id="player" class="player">●</div>
   </div>
+  <div class="mapLegend"><span class="gold">◆ Händler-Boutique</span><span class="cream">▰ Privater Stand</span><span class="blue">▦ Einzelmarkt</span></div>
   <div id="nearby" class="nearbyPanel hidden"><div id="nearbyType" class="nearbyTitle">IN DEINER NÄHE</div><div id="nearbyName" class="nearbyName"></div><div id="nearbyMeta" class="nearbyMeta"></div><div id="nearbyActions" class="nearbyActions"></div></div>
   <div class="controlsPanel"><div class="ctrlRow"><button id="zoomOut" class="worldBtn">−</button><button id="homeBtn" class="worldBtn">◎ Mitte</button><button id="zoomIn" class="worldBtn">＋</button></div><div class="dpad"><button class="up" data-move="up">▲</button><button class="left" data-move="left">◀</button><button class="home" id="mobileHome">MITTE</button><button class="right" data-move="right">▶</button><button class="down" data-move="down">▼</button></div></div>
   </div>
@@ -107,20 +229,20 @@ dialog{border:0;border-radius:23px;padding:0;width:min(470px,calc(100% - 20px));
 
 <dialog id="standDialog"><div class="sheet"><button id="closeDialog" class="sheetClose" type="button">✕</button><div class="sheetTop"><div id="sheetLogo" class="sheetLogo">D</div><div><div id="sheetType" class="eyebrow">BASAR</div><h3 id="sheetName">Eintrag</h3><div id="sheetMeta" class="sub"></div></div></div><p id="sheetDesc"></p><div id="sheetActions" class="sheetActions"></div></div></dialog>
 
-<script src="app-core.js?v=18"></script>
+<script src="app-core.js?v=19"></script>
 <script>
 const $=id=>document.getElementById(id);
-const W=1600,H=1000,slots=[{x:150,y:150},{x:390,y:150},{x:650,y:150},{x:910,y:150},{x:1170,y:150},{x:1410,y:150},{x:150,y:320},{x:390,y:320},{x:1170,y:320},{x:1410,y:320},{x:150,y:570},{x:390,y:570},{x:1170,y:570},{x:1410,y:570},{x:150,y:740},{x:390,y:740},{x:650,y:740},{x:910,y:740},{x:1170,y:740},{x:1410,y:740},{x:560,y:315},{x:860,y:315},{x:560,y:620},{x:860,y:620}];
+const W=1600,H=1000,slots=[{x:105,y:105},{x:340,y:105},{x:575,y:105},{x:810,y:105},{x:1045,y:105},{x:1280,y:105},{x:105,y:285},{x:340,y:285},{x:1065,y:285},{x:1300,y:285},{x:105,y:590},{x:340,y:590},{x:1065,y:590},{x:1300,y:590},{x:105,y:770},{x:340,y:770},{x:575,y:770},{x:810,y:770},{x:1045,y:770},{x:1280,y:770},{x:515,y:300},{x:885,y:300},{x:515,y:610},{x:885,y:610}];
 const DISTRICTS=[
  {id:'hauptplatz',label:'Hauptplatz',icon:'◎',color:'#f26f21',desc:'Von hier kommst du in jedes Marktviertel.'},
- {id:'technik',label:'Technik',icon:'⌁',color:'#4b65d1',desc:'Elektronik, Computer, Smartphones und Technik.'},
- {id:'mobilitaet',label:'Mobilität',icon:'↗',color:'#3e7c61',desc:'Auto, Motorrad, Fahrräder und Mobilität.'},
- {id:'haus-garten',label:'Haus & Garten',icon:'⌂',color:'#9a6b3d',desc:'Möbel, Wohnen, Garten und Haushalt.'},
- {id:'mode',label:'Mode',icon:'◇',color:'#a64f78',desc:'Mode, Accessoires und Schmuck.'},
- {id:'freizeit',label:'Freizeit',icon:'✦',color:'#537d3f',desc:'Sport, Hobby, Sammler und Freizeit.'},
- {id:'arbeit-service',label:'Arbeit & Service',icon:'⚒',color:'#765ca8',desc:'Jobs, Handwerk und Dienstleistungen.'},
- {id:'sonstiges',label:'Sonstiges',icon:'…',color:'#727272',desc:'Alles, was in kein anderes Viertel passt.'},
- {id:'einzelmarkt',label:'Einzelmarkt',icon:'▦',color:'#2867bd',desc:'Einzelanzeigen von Verkäufern ohne eigenen Stand.'}
+ {id:'technik',label:'Tech Passage',icon:'⌁',color:'#4b65d1',desc:'Elektronik, Computer, Smartphones und moderne Technik.'},
+ {id:'mobilitaet',label:'Motor Avenue',icon:'↗',color:'#3e7c61',desc:'Auto, Motorrad, Fahrräder und Mobilität.'},
+ {id:'haus-garten',label:'Home & Design Court',icon:'⌂',color:'#9a6b3d',desc:'Möbel, Wohnen, Garten, Interieur und Haushalt.'},
+ {id:'mode',label:'Mode Boulevard',icon:'◇',color:'#a64f78',desc:'Boutiquen, Mode, Accessoires, Schmuck und Uhren.'},
+ {id:'freizeit',label:'Freizeit Hof',icon:'✦',color:'#537d3f',desc:'Sport, Hobby, Sammler und Freizeit.'},
+ {id:'arbeit-service',label:'Werkstattgasse',icon:'⚒',color:'#765ca8',desc:'Jobs, Handwerk und Dienstleistungen.'},
+ {id:'sonstiges',label:'Fundstücke',icon:'…',color:'#727272',desc:'Besondere Stände und alles, was sonst nirgends passt.'},
+ {id:'einzelmarkt',label:'Einzelmarkt',icon:'▦',color:'#2867bd',desc:'Einzelanzeigen ohne eigenen Stand – direkt im Markt.'}
 ];
 const PORTAL_SLOTS=[1,3,5,7,18,20,22,24];
 let district='hauptplatz',block=1,mapObjects=[],hasNext=false,px=800,py=680,scale=.72,tx=0,ty=0,drag=null,searchShopRows=[],searchListingRows=[];
@@ -131,22 +253,24 @@ async function rows(table,params={}){const u=new URL(DB.url+'/rest/v1/'+table);O
 function renderDistrictButtons(){$('districts').innerHTML=DISTRICTS.map(d=>'<button class="districtBtn '+(d.id===district?'on ':'')+(d.id==='einzelmarkt'?'individual':'')+'" data-d="'+d.id+'">'+d.icon+' '+DB.esc(d.label)+'</button>').join('');$('districts').querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>enterDistrict(b.dataset.d,1))}
 function setTop(){const d=dInfo(district);$('bazaarTitle').textContent=d.label+(district==='hauptplatz'?'':' · Block '+block);$('plazaTitle').firstChild.textContent=(district==='hauptplatz'?'HAUPTPLATZ':d.label.toUpperCase());$('plazaSub').textContent=district==='hauptplatz'?'Wähle dein Viertel':'Block '+block+' · 24 Plätze';$('blockNav').classList.toggle('hidden',district==='hauptplatz');$('blockLabel').textContent='Block '+block;$('prevBlock').disabled=block<=1;$('nextBlock').disabled=!hasNext}
 function portalObjects(){return DISTRICTS.filter(d=>d.id!=='hauptplatz').map((d,i)=>({kind:'portal',slot:PORTAL_SLOTS[i],district:d.id,name:d.label,description:d.desc,icon:d.icon,color:d.color}))}
-function freeHtml(n){const p=slots[n-1];return '<div class="stall free" data-slot="'+n+'" style="left:'+p.x+'px;top:'+p.y+'px"><div class="awning"></div><div class="freeBody">Freier Platz<br><small>wird automatisch vergeben</small></div></div>'}
-function objectHtml(o){const p=slots[o.slot-1];if(o.kind==='portal')return '<button class="stall portal" data-slot="'+o.slot+'" style="left:'+p.x+'px;top:'+p.y+'px;--accent:'+o.color+'"><div class="awning"></div><div class="stallBody"><div class="stallLogo">'+o.icon+'</div><div class="stallInfo"><div class="stallName">'+DB.esc(o.name)+'</div><div class="stallMeta">'+DB.esc(o.description)+'</div><span class="stallBadge">VIERTEL</span></div></div></button>';
+function freeHtml(n){const p=slots[n-1];return '<div class="stall free" data-slot="'+n+'" style="left:'+p.x+'px;top:'+p.y+'px"><div class="awning"></div><div class="slotNo">#'+n+'</div><div class="freeBody"><div><b>FREIER STAND</b><br><small>Standplatz verfügbar</small></div></div></div>'}
+function objectHtml(o){const p=slots[o.slot-1];if(o.kind==='portal')return '<button class="stall portal districtGate" data-slot="'+o.slot+'" style="left:'+p.x+'px;top:'+p.y+'px;--accent:'+o.color+'"><div class="awning"></div><div class="stallBody"><div class="stallLogo">'+o.icon+'</div><div class="stallInfo"><div class="stallName">'+DB.esc(o.name)+'</div><div class="stallMeta">'+DB.esc(o.description)+'</div><span class="stallBadge">MARKTVIERTEL →</span></div></div></button>';
 if(o.kind==='listing'){const img=o.image_urls?.[0];return '<button class="stall itemSpot" data-slot="'+o.slot+'" style="left:'+p.x+'px;top:'+p.y+'px"><div class="awning"></div><div class="slotNo">#'+o.slot+'</div><div class="stallBody"><div class="stallLogo">'+(img?'<img src="'+DB.esc(img)+'" alt="">':'▦')+'</div><div class="stallInfo"><div class="stallName">'+DB.esc(o.title)+'</div><div class="stallMeta">'+DB.euro(o.price)+' · '+DB.esc(o.location||'')+'</div><span class="stallBadge">EINZELANZEIGE</span></div></div></button>'}
-return '<button class="stall" data-slot="'+o.slot+'" style="left:'+p.x+'px;top:'+p.y+'px;--accent:'+accent(o)+'"><div class="awning"></div><div class="slotNo">#'+o.slot+'</div><div class="stallBody"><div class="stallLogo">'+(o.logo_url?'<img src="'+DB.esc(o.logo_url)+'" alt="">':DB.esc((o.name||'S')[0].toUpperCase()))+'</div><div class="stallInfo"><div class="stallName">'+DB.esc(o.name)+'</div><div class="stallMeta">'+DB.esc((o.categories||[]).join(' · ')||o.city||'DeinBasar')+'</div><span class="stallBadge '+(o.is_commercial?'com':'')+'">'+(o.is_commercial?'HÄNDLER':'PRIVATER STAND')+'</span></div></div></button>'}
-function renderWorld(){let html='';if(district==='hauptplatz'){mapObjects=portalObjects();html=mapObjects.map(objectHtml).join('')}else{const bySlot=new Map(mapObjects.map(o=>[Number(o.slot),o]));for(let n=1;n<=24;n++)html+=bySlot.has(n)?objectHtml(bySlot.get(n)):freeHtml(n)}$('stalls').innerHTML=html;$('stalls').querySelectorAll('.stall:not(.free)').forEach(el=>el.onclick=()=>openObject(mapObjects.find(o=>Number(o.slot)===Number(el.dataset.slot))));updateNearby()}
+return '<button class="stall '+(o.is_commercial?'boutique':'marketStand')+'" data-slot="'+o.slot+'" style="left:'+p.x+'px;top:'+p.y+'px;--accent:'+accent(o)+'"><div class="awning"></div><div class="slotNo">#'+o.slot+'</div><div class="stallBody"><div class="stallLogo">'+(o.logo_url?'<img src="'+DB.esc(o.logo_url)+'" alt="">':DB.esc((o.name||'S')[0].toUpperCase()))+'</div><div class="stallInfo"><div class="stallName">'+DB.esc(o.name)+'</div><div class="stallMeta">'+DB.esc((o.categories||[]).join(' · ')||o.city||'DeinBasar')+'</div><span class="stallBadge '+(o.is_commercial?'com':'')+'">'+(o.is_commercial?'BOUTIQUE · HÄNDLER':'PRIVATER STAND')+'</span></div></div></button>'}
+function renderWorld(){$('world').dataset.district=district;let html='';if(district==='hauptplatz'){mapObjects=portalObjects();html=mapObjects.map(objectHtml).join('')}else{const bySlot=new Map(mapObjects.map(o=>[Number(o.slot),o]));for(let n=1;n<=24;n++)html+=bySlot.has(n)?objectHtml(bySlot.get(n)):freeHtml(n)}$('stalls').innerHTML=html;$('stalls').querySelectorAll('.stall:not(.free)').forEach(el=>el.onclick=()=>openObject(mapObjects.find(o=>Number(o.slot)===Number(el.dataset.slot))));updateNearby()}
 function openObject(o){if(!o)return;if(o.kind==='portal'){enterDistrict(o.district,1);return}if(o.kind==='listing'){$('sheetType').textContent='EINZELANZEIGE · BLOCK '+block+' · PLATZ '+o.slot;$('sheetName').textContent=o.title;$('sheetMeta').textContent=[DB.euro(o.price),o.location,o.category].filter(Boolean).join(' · ');$('sheetDesc').textContent='Diese Anzeige gehört zu keinem eigenen Stand und ist deshalb direkt im Einzelmarkt platziert.';$('sheetLogo').innerHTML=o.image_urls?.[0]?'<img src="'+DB.esc(o.image_urls[0])+'" alt="">':'▦';$('sheetActions').innerHTML='<button class="btn light" type="button" id="goStand">Dorthin</button><a class="btn orange" href="anzeige.html?id='+encodeURIComponent(o.id)+'">Artikel öffnen</a>';$('goStand').onclick=()=>{$('standDialog').close();moveToSlot(o.slot)};$('standDialog').showModal();return}
 $('sheetType').textContent=(o.is_commercial?'GEWERBLICHER HÄNDLER':'PRIVATER STAND')+' · '+dInfo(district).label+' · B'+block+' · #'+o.slot;$('sheetName').textContent=o.name;$('sheetMeta').textContent=[o.city,(o.categories||[]).join(' · ')].filter(Boolean).join(' · ');$('sheetDesc').textContent=o.description||'Dieser Stand baut sein Sortiment gerade aus.';$('sheetLogo').innerHTML=o.logo_url?'<img src="'+DB.esc(o.logo_url)+'" alt="">':DB.esc((o.name||'S')[0].toUpperCase());$('sheetActions').innerHTML='<button class="btn light" type="button" id="goStand">Dorthin</button><a class="btn orange" href="shop.html?id='+encodeURIComponent(o.id)+'">Stand betreten</a>';$('goStand').onclick=()=>{$('standDialog').close();moveToSlot(o.slot)};$('standDialog').showModal()}
 $('closeDialog').onclick=()=>$('standDialog').close();$('standDialog').onclick=e=>{if(e.target===$('standDialog'))$('standDialog').close()}
 function nearest(){let best=null;for(const o of mapObjects){const p=slots[o.slot-1],d=Math.hypot(px-(p.x+90),py-(p.y+59));if(!best||d<best.d)best={o,d}}return best}
 function updateNearby(){const panel=$('nearby');$('stalls')?.querySelectorAll('.stall.nearby').forEach(x=>x.classList.remove('nearby'));const h=nearest();if(!h||h.d>210){panel.classList.add('hidden');return}document.querySelector('.stall[data-slot="'+h.o.slot+'"]')?.classList.add('nearby');panel.classList.remove('hidden');const o=h.o;if(o.kind==='portal'){$('nearbyType').textContent='MARKTVIERTEL';$('nearbyName').textContent=o.name;$('nearbyMeta').textContent=o.description;$('nearbyActions').innerHTML='<button class="enter" id="nearbyEnter">Viertel betreten</button>';$('nearbyEnter').onclick=()=>enterDistrict(o.district,1);return}if(o.kind==='listing'){$('nearbyType').textContent='EINZELANZEIGE · B'+block+' · #'+o.slot;$('nearbyName').textContent=o.title;$('nearbyMeta').textContent=DB.euro(o.price)+' · '+(o.location||'');$('nearbyActions').innerHTML='<button class="look" id="nearbyLook">Details</button><a class="enter" href="anzeige.html?id='+encodeURIComponent(o.id)+'">Öffnen</a>';$('nearbyLook').onclick=()=>openObject(o);return}$('nearbyType').textContent=(o.is_commercial?'HÄNDLER':'STAND')+' · B'+block+' · #'+o.slot;$('nearbyName').textContent=o.name;$('nearbyMeta').textContent=[o.city,(o.categories||[]).join(' · ')].filter(Boolean).join(' · ');$('nearbyActions').innerHTML='<button class="look" id="nearbyLook">Details</button><a class="enter" href="shop.html?id='+encodeURIComponent(o.id)+'">Betreten</a>';$('nearbyLook').onclick=()=>openObject(o)}
-function setTransform(){const vp=$('viewport'),r=vp.getBoundingClientRect(),minTx=r.width-W*scale,minTy=r.height-H*scale;tx=Math.min(0,Math.max(minTx,tx));ty=Math.min(0,Math.max(minTy,ty));$('world').style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';$('player').style.left=(px-17)+'px';$('player').style.top=(py-17)+'px';updateNearby()}
+function minScale(){const r=$('viewport').getBoundingClientRect();const fit=Math.min((r.width-18)/W,(r.height-18)/H);return Math.max(window.innerWidth<700?.46:.58,Math.min(.76,fit*.9))}
+function defaultScale(){const r=$('viewport').getBoundingClientRect();const fit=Math.min((r.width-24)/W,(r.height-24)/H);return Math.max(minScale(),Math.min(window.innerWidth<700?.62:.82,fit))}
+function setTransform(){const vp=$('viewport'),r=vp.getBoundingClientRect(),ww=W*scale,hh=H*scale;if(ww<=r.width)tx=(r.width-ww)/2;else{const minTx=r.width-ww;tx=Math.min(0,Math.max(minTx,tx))}if(hh<=r.height)ty=(r.height-hh)/2;else{const minTy=r.height-hh;ty=Math.min(0,Math.max(minTy,ty))}$('world').classList.toggle('zoomFar',scale<.69);$('world').style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';$('player').style.left=(px-17)+'px';$('player').style.top=(py-17)+'px';updateNearby()}
 function centerPlayer(animate=false){const r=$('viewport').getBoundingClientRect();tx=r.width/2-px*scale;ty=r.height/2-py*scale;if(animate)$('world').style.transition='transform .35s ease';setTransform();setTimeout(()=>$('world').style.transition='',380)}
 function moveToSlot(n){const p=slots[n-1];px=Math.max(30,Math.min(W-30,p.x+90));py=Math.max(30,Math.min(H-30,p.y+160));centerPlayer(true)}
 function move(dx,dy){px=Math.max(25,Math.min(W-25,px+dx));py=Math.max(25,Math.min(H-25,py+dy));centerPlayer()}
-function zoom(by){const r=$('viewport').getBoundingClientRect(),cx=(r.width/2-tx)/scale,cy=(r.height/2-ty)/scale;scale=Math.max(.42,Math.min(1.18,scale+by));tx=r.width/2-cx*scale;ty=r.height/2-cy*scale;setTransform()}
-$('zoomIn').onclick=()=>zoom(.1);$('zoomOut').onclick=()=>zoom(-.1);$('homeBtn').onclick=$('mobileHome').onclick=()=>{px=800;py=680;scale=window.innerWidth<700?.58:.72;centerPlayer(true)}
+function zoom(by){const r=$('viewport').getBoundingClientRect(),cx=(r.width/2-tx)/scale,cy=(r.height/2-ty)/scale;scale=Math.max(minScale(),Math.min(1.2,scale+by));tx=r.width/2-cx*scale;ty=r.height/2-cy*scale;setTransform()}
+$('zoomIn').onclick=()=>zoom(.1);$('zoomOut').onclick=()=>zoom(-.1);$('homeBtn').onclick=$('mobileHome').onclick=()=>{px=800;py=680;scale=defaultScale();centerPlayer(true)}
 document.querySelectorAll('[data-move]').forEach(b=>{const step=70;b.onclick=()=>({up:()=>move(0,-step),down:()=>move(0,step),left:()=>move(-step,0),right:()=>move(step,0)}[b.dataset.move]())})
 window.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA'].includes(document.activeElement?.tagName))return;const m={arrowup:[0,-45],w:[0,-45],arrowdown:[0,45],s:[0,45],arrowleft:[-45,0],a:[-45,0],arrowright:[45,0],d:[45,0]}[e.key.toLowerCase()];if(m){e.preventDefault();move(...m)}})
 const vp=$('viewport');vp.onpointerdown=e=>{if(e.target.closest('.stall,.controlsPanel'))return;drag={x:e.clientX,y:e.clientY,tx,ty};vp.setPointerCapture(e.pointerId)};vp.onpointermove=e=>{if(!drag)return;tx=drag.tx+(e.clientX-drag.x);ty=drag.ty+(e.clientY-drag.y);setTransform()};vp.onpointerup=vp.onpointercancel=()=>drag=null;
@@ -157,7 +281,7 @@ if(district==='einzelmarkt'){$('sectionTitle').textContent='Einzelanzeigen in Bl
 $('sectionTitle').textContent=dInfo(district).label+' · Block '+block;$('sectionCount').textContent=mapObjects.length+' von 24 Standplätzen';$('currentList').innerHTML=mapObjects.length?mapObjects.map(cardShop).join(''):'<div class="empty">In diesem Block ist noch kein öffentlicher Stand belegt.</div>'}
 async function loadDistrict(){const d=dInfo(district);$('bazaarStatus').textContent='Lädt …';mapObjects=[];hasNext=false;if(district==='hauptplatz'){mapObjects=portalObjects();$('bazaarStatus').textContent='8 Bereiche';setTop();renderWorld();renderCurrentList();return}
 try{if(district==='einzelmarkt'){const sel='id,title,price,location,image_urls,category,status,seller_kind,shop_id,virtual_district,virtual_block,virtual_slot';const [cur,nxt]=await Promise.all([rows('listings',{shop_id:'is.null',status:'in.(active,reserved)',virtual_district:'eq.einzelmarkt',virtual_block:'eq.'+block,select:sel,order:'virtual_slot.asc',limit:24}),rows('listings',{shop_id:'is.null',status:'in.(active,reserved)',virtual_district:'eq.einzelmarkt',virtual_block:'eq.'+(block+1),select:'id',limit:1})]);mapObjects=cur.map(x=>({...x,kind:'listing',slot:Number(x.virtual_slot)}));hasNext=nxt.length>0}else{const sel='id,name,description,city,postal_code,categories,verified,trader_verified,rating,rating_count,is_commercial,logo_url,accent_color,offers_pickup,offers_shipping,virtual_slot,virtual_district,virtual_block';const [cur,nxt]=await Promise.all([rows('public_shops',{virtual_district:'eq.'+district,virtual_block:'eq.'+block,select:sel,order:'virtual_slot.asc',limit:24}),rows('public_shops',{virtual_district:'eq.'+district,virtual_block:'eq.'+(block+1),select:'id',limit:1})]);mapObjects=cur.map(x=>({...x,kind:'shop',slot:Number(x.virtual_slot)}));hasNext=nxt.length>0}$('bazaarStatus').textContent=mapObjects.length+' / 24 belegt'}catch(e){console.error(e);$('bazaarStatus').textContent='Bereich konnte nicht geladen werden'}setTop();renderWorld();renderCurrentList()}
-async function enterDistrict(id,b=1){district=id;block=Math.max(1,Number(b)||1);renderDistrictButtons();await loadDistrict();px=800;py=680;scale=window.innerWidth<700?.58:.72;centerPlayer(true);document.querySelector('.bazaarShell')?.scrollIntoView({behavior:'smooth',block:'start'})}
+async function enterDistrict(id,b=1){district=id;block=Math.max(1,Number(b)||1);renderDistrictButtons();await loadDistrict();px=800;py=680;scale=defaultScale();centerPlayer(true);document.querySelector('.bazaarShell')?.scrollIntoView({behavior:'smooth',block:'start'})}
 $('prevBlock').onclick=()=>{if(block>1)enterDistrict(district,block-1)};$('nextBlock').onclick=()=>{if(hasNext)enterDistrict(district,block+1)}
 async function loadLatest(){try{const x=await rows('listings',{status:'in.(active,reserved)',select:'id,title,price,location,image_urls,category,seller_kind,shop_id,virtual_district,virtual_block,virtual_slot,created_at',order:'created_at.desc',limit:12});$('latestCount').textContent=x.length+' neue Artikel';$('latestGrid').innerHTML=x.length?x.map(a=>'<a class="card" href="anzeige.html?id='+encodeURIComponent(a.id)+'"><div class="pic">'+(a.image_urls?.[0]?'<img src="'+DB.esc(a.image_urls[0])+'" alt="'+DB.esc(a.title)+'" loading="lazy">':'Kein Bild')+'</div><div class="body"><div class="title">'+DB.esc(a.title)+'</div><div class="price">'+DB.euro(a.price)+'</div><div class="meta">'+DB.esc(a.location||'')+' · '+DB.esc(a.category||'')+'</div><span class="tag '+(a.seller_kind==='commercial'?'com':(!a.shop_id?'ind':''))+'">'+(a.seller_kind==='commercial'?'GEWERBLICH':(!a.shop_id?'EINZELMARKT':'PRIVATER STAND'))+'</span></div></a>').join(''):'<div class="empty">Noch keine öffentlichen Artikel.</div>'}catch(e){$('latestGrid').innerHTML='<div class="empty">Neue Artikel konnten gerade nicht geladen werden.</div>'}}
 function searchLogic(fields,q,placeFields,p){const qOr=q?'or('+fields.map(f=>f+'.ilike.*'+q+'*').join(',')+')':'';const pOr=p?'or('+placeFields.map(f=>f+'.ilike.*'+p+'*').join(',')+')':'';if(qOr&&pOr)return{and:'('+qOr+','+pOr+')'};if(qOr)return{or:'('+fields.map(f=>f+'.ilike.*'+q+'*').join(',')+')'};if(pOr)return{or:'('+placeFields.map(f=>f+'.ilike.*'+p+'*').join(',')+')'};return{}}
@@ -165,7 +289,7 @@ async function doSearch(){const q=safeTerm($('q').value),p=safeTerm($('place').v
 async function goShopMap(id){let s=searchShopRows.find(x=>x.id===id);if(!s)s=(await rows('public_shops',{id:'eq.'+id,select:'id,virtual_district,virtual_block,virtual_slot',limit:1}))[0];if(!s)return;await enterDistrict(s.virtual_district,Number(s.virtual_block)||1);moveToSlot(Number(s.virtual_slot))}
 async function goListingMap(id){let x=searchListingRows.find(a=>a.id===id);if(!x)x=(await rows('listings',{id:'eq.'+id,select:'id,shop_id,virtual_district,virtual_block,virtual_slot',limit:1}))[0];if(!x)return;if(!x.shop_id&&x.virtual_district==='einzelmarkt'){await enterDistrict('einzelmarkt',Number(x.virtual_block)||1);moveToSlot(Number(x.virtual_slot));return}if(x.shop_id){const s=(await rows('public_shops',{id:'eq.'+x.shop_id,select:'id,virtual_district,virtual_block,virtual_slot',limit:1}))[0];if(s){await enterDistrict(s.virtual_district,Number(s.virtual_block)||1);moveToSlot(Number(s.virtual_slot));return}}location.href='anzeige.html?id='+encodeURIComponent(id)}
 $('searchBtn').onclick=doSearch;$('q').onkeydown=$('place').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();doSearch()}};$('searchClose').onclick=()=>$('searchResults').classList.add('hidden')
-function firstFit(){scale=window.innerWidth<700?.58:.72;px=800;py=680;centerPlayer()}window.addEventListener('resize',firstFit);
+function firstFit(){scale=defaultScale();px=800;py=680;centerPlayer()}window.addEventListener('resize',firstFit);
 renderDistrictButtons();loadDistrict();loadLatest();firstFit();
 </script>
 </body></html>
