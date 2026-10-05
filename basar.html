@@ -313,7 +313,7 @@ function makeStand(s){
 }
 function makeFree(zone,slot){
   const p=slotPos(zone,slot);
-  return `<button class="stand free" type="button" style="left:${p.x}px;top:${p.y}px" data-free="${zone}"><span class="closed">Standplatz frei</span></button>`;
+  const visible=currentFilter==='all'||currentFilter===zone;return `<button class="stand free ${visible?'':'hidden'}" type="button" style="left:${p.x}px;top:${p.y}px" data-free="${zone}"><span class="closed">Standplatz frei</span></button>`;
 }
 function renderMap(){
   const occupied=new Map();
@@ -478,6 +478,15 @@ async function load(){
       api('/rest/v1/listings?status=in.(active,reserved)&select=id,shop_id,title,price,location,image_urls,category,seller_kind,created_at&order=created_at.desc&limit=600')
     ]);
     shops=(s||[]).filter(x=>x.virtual_slot&&x.virtual_district);listings=l||[];individual=listings.filter(x=>!x.shop_id);
+    if(shops.length){
+      try{
+        const ids=[...new Set(shops.map(x=>x.owner_id).filter(Boolean))];
+        if(ids.length){
+          const ps=await api('/rest/v1/public_profiles?id=in.('+ids.join(',')+')&select=id,is_online');
+          const online=new Map((ps||[]).map(p=>[p.id,!!p.is_online]));shops=shops.map(x=>({...x,is_online:online.get(x.owner_id)||false}));
+        }
+      }catch(e){console.warn('Online-Status nicht verfügbar',e)}
+    }
     shopById=new Map(shops.map(x=>[x.id,x]));shopProducts=new Map();
     for(const x of listings){if(!x.shop_id)continue;if(!shopProducts.has(x.shop_id))shopProducts.set(x.shop_id,[]);shopProducts.get(x.shop_id).push(x)}
     renderMap();$('statusText').textContent=shops.length+' Stände · '+listings.length+' Artikel';$('liveDot').classList.add('live');
