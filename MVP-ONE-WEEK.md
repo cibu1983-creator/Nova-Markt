@@ -50,7 +50,8 @@ Ziel: Eine kontrollierte öffentliche Beta mit dem virtuellen 2D-Basar als prim�
 - [x] Shop-Gestaltung ohne 3D-Builder
 - [x] Händlerangaben/Produktinformationen
 - [x] ungeprüfte Händler bleiben öffentlich gesperrt
-- [ ] Admin-Prozess für Händlerprüfung finalisieren
+- [x] Admin-Prozess für Händlerprüfung technisch vorhanden
+- [ ] Admin-Konto für Händlerprüfung freischalten
 
 ## Tag 4 – Trust & Safety
 - [x] Blockieren/Melden
@@ -60,7 +61,8 @@ Ziel: Eine kontrollierte öffentliche Beta mit dem virtuellen 2D-Basar als prim�
 - [x] Massen-Nachrichten-Sperre
 - [x] Listing-Moderations-Holds
 - [x] Einspruchsweg
-- [ ] Moderator-Oberfläche / operative Bearbeitung
+- [x] Moderator-Oberfläche / operative Bearbeitung
+- [ ] Admin-Konto für Moderation freischalten
 
 ## Tag 5 – Recht & Datenschutz
 - [x] Private Kontaktdaten von öffentlichen Händlerdaten getrennt
